@@ -150,12 +150,12 @@ Prefab:
     - target: {fileID: 114067017912675112, guid: a79e3bc06a5844d408b0fb8c1a664789,
         type: 2}
       propertyPath: moveSpeed
-      value: 120
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 114067017912675112, guid: a79e3bc06a5844d408b0fb8c1a664789,
         type: 2}
       propertyPath: maxSpeed
-      value: 300
+      value: 225
       objectReference: {fileID: 0}
     - target: {fileID: 4707326142662786, guid: a79e3bc06a5844d408b0fb8c1a664789, type: 2}
       propertyPath: m_LocalScale.x
@@ -168,6 +168,26 @@ Prefab:
     - target: {fileID: 4707326142662786, guid: a79e3bc06a5844d408b0fb8c1a664789, type: 2}
       propertyPath: m_LocalScale.z
       value: 0.50884044
+      objectReference: {fileID: 0}
+    - target: {fileID: 114067017912675112, guid: a79e3bc06a5844d408b0fb8c1a664789,
+        type: 2}
+      propertyPath: friction
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114067017912675112, guid: a79e3bc06a5844d408b0fb8c1a664789,
+        type: 2}
+      propertyPath: dashMax
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114067017912675112, guid: a79e3bc06a5844d408b0fb8c1a664789,
+        type: 2}
+      propertyPath: dashSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114067017912675112, guid: a79e3bc06a5844d408b0fb8c1a664789,
+        type: 2}
+      propertyPath: dashResetMaxTime
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a79e3bc06a5844d408b0fb8c1a664789, type: 2}

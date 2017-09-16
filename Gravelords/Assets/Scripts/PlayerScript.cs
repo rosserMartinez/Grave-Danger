@@ -22,6 +22,13 @@ public class PlayerScript : MonoBehaviour
     public Vector2 force;
     public Vector2 position;
 
+    public int dashCount;
+    public float dashSpeed;
+    public int dashMax;
+    public float dashResetTimer;
+    public float dashResetMaxTime;
+    //public bool dashCooldown;
+
     public bool canDig;
     public bool inHitstun;
 
@@ -35,6 +42,9 @@ public class PlayerScript : MonoBehaviour
         playerCol = GetComponent<BoxCollider2D>();
         lastGrave = null;
         inHitstun = false;
+
+        dashCount = dashMax;
+        
     }
 
     public void addForce(Vector2 newForce)
@@ -52,6 +62,32 @@ public class PlayerScript : MonoBehaviour
 
         //rb.velocity = moveVec;
         addForce(moveVec);
+
+        //Debug.Log(Input.GetButtonDown("p1A"));
+
+        //dash
+        if (Input.GetButtonDown("p1A") && dashCount > 0)
+        {
+            Debug.Log(Input.GetButtonDown("p1A"));
+            addForce(moveVec * 15);
+            --dashCount;
+
+            if (dashCount < dashMax)
+            { 
+                dashResetTimer = 0f;
+            }
+        }
+
+        if (dashCount < dashMax && dashResetTimer < dashResetMaxTime)
+        {
+            dashResetTimer += Time.deltaTime;
+
+            if (dashResetTimer >= dashResetMaxTime)
+            {
+                dashCount++;
+                dashResetTimer = 0f;
+            }
+        }
 
         addForce(-speed * friction);
 
@@ -75,14 +111,14 @@ public class PlayerScript : MonoBehaviour
         {
             //Debug.Log(Input.GetButtonUp("p1A"));
 
-            if (Input.GetButtonUp("p1A") && !inHitstun && lastGrave.currentState != GraveScript.DigState.DUG)
+            if (Input.GetButtonUp("p1X") && !inHitstun && lastGrave.currentState != GraveScript.DigState.DUG)
             {
-                GamePad.SetVibration(PlayerIndex.One, .3f, .3f);
+                //GamePad.SetVibration(PlayerIndex.One, .3f, .3f);
                 --lastGrave.currentState;
 
                 lastGrave.updateGraveState();
 
-                GamePad.SetVibration(PlayerIndex.One, .0f, .0f);
+                //GamePad.SetVibration(PlayerIndex.One, .0f, .0f);
 
             }
             else if (Input.GetButtonUp("p1B") && !inHitstun && lastGrave.currentState != GraveScript.DigState.UNDUG)
