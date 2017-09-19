@@ -110,7 +110,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 613}
   m_MaxSize: {x: 18008, y: 18063}
   vertical: 0
-  controlID: 41
+  controlID: 21
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -131,10 +131,10 @@ MonoBehaviour:
     y: 0
     width: 1080
     height: 1067
-  m_MinSize: {x: 202, y: 421}
-  m_MaxSize: {x: 4002, y: 8021}
+  m_MinSize: {x: 202, y: 442}
+  m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
-  controlID: 42
+  controlID: 22
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_MinSize: {x: 234, y: 613}
   m_MaxSize: {x: 10004, y: 18063}
   vertical: 1
-  controlID: 64
+  controlID: 122
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -413,14 +413,14 @@ MonoBehaviour:
     width: 1078
     height: 542
   m_SceneLighting: 1
-  lastFramingTime: 0
-  m_2DMode: 1
+  lastFramingTime: 1690.2243502332797
+  m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -19.789017, y: 7.481964, z: 0}
+    m_Target: {x: -10.565897, y: 9.423078, z: 4.079998}
     speed: 2
-    m_Value: {x: -19.789017, y: 7.481964, z: 0}
+    m_Value: {x: -10.565897, y: 9.423078, z: 4.079998}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -435,26 +435,26 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
     yGrid:
-      m_Target: 0
-      speed: 2
-      m_Value: 0
-    zGrid:
       m_Target: 1
       speed: 2
       m_Value: 1
+    zGrid:
+      m_Target: 0
+      speed: 2
+      m_Value: 0
   m_Rotation:
     m_Target: {x: 0, y: 0, z: 0, w: 1}
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 12.819267
+    m_Target: 15.720404
     speed: 2
-    m_Value: 12.819267
+    m_Value: 15.720404
   m_Ortho:
-    m_Target: 1
+    m_Target: 0
     speed: 2
-    m_Value: 1
-  m_LastSceneViewRotation: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
+    m_Value: 0
+  m_LastSceneViewRotation: {x: 0.1023379, y: -0.21460074, z: 0.022616263, w: 0.9710623}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
   m_ReplacementString: 
@@ -488,9 +488,9 @@ MonoBehaviour:
     height: 290
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 4cfaffff
-    m_LastClickedID: -1460
-    m_ExpandedIDs: 4efaffff00000000
+    m_SelectedIDs: e0260000
+    m_LastClickedID: 0
+    m_ExpandedIDs: 4cfaffff4efaffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -583,7 +583,7 @@ MonoBehaviour:
   m_LastFolders:
   - Assets/Scripts
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\Student\Desktop\dont do it motherfucker\gravelord\Gravelords
+  m_LastProjectPath: C:\Users\Student\Desktop\its ya boi steven\gravelord\Gravelords
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
@@ -698,7 +698,7 @@ MonoBehaviour:
     y: 92
     width: 483
     height: 1046
-  m_ScrollPosition: {x: 0, y: 71.95508}
+  m_ScrollPosition: {x: 0, y: 0}
   m_InspectorMode: 0
   m_PreviewResizer:
     m_CachedPref: -160

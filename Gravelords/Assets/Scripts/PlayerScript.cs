@@ -107,6 +107,20 @@ public class PlayerScript : MonoBehaviour
 
         transform.position = position;
 
+
+        if (Input.GetAxis("p1RightX") != 0 || Input.GetAxis("p1RightY") != 0)
+        {
+            //Debug.Log(Input.GetAxisRaw("p1RightX") + " x    y " + Input.GetAxisRaw("p1RightY"));
+
+            //var aim = Quaternion.LookRotation(Vector3.up, new Vector3(0, 0, Input.GetAxisRaw("p1RightX") + Input.GetAxisRaw("p1RightY") ));
+
+            //this.transform.rotation = aim;
+
+
+        //localrotation
+        //rotate on z budster
+        }
+
         if (canDig)
         {
             //Debug.Log(Input.GetButtonUp("p1A"));
