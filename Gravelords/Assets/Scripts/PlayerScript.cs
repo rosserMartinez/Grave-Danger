@@ -32,6 +32,8 @@ public class PlayerScript : MonoBehaviour
     public bool canDig;
     public bool inHitstun;
 
+	public ShovelScript playerShovel;
+
     // Use this for initialization
     void Start()
     {
@@ -44,6 +46,8 @@ public class PlayerScript : MonoBehaviour
         inHitstun = false;
 
         dashCount = dashMax;
+
+		playerShovel = GetComponentInChildren<ShovelScript> ();
         
     }
 
@@ -68,7 +72,7 @@ public class PlayerScript : MonoBehaviour
         //dash
         if (Input.GetButtonDown("p1A") && dashCount > 0)
         {
-            Debug.Log(Input.GetButtonDown("p1A"));
+            //Debug.Log(Input.GetButtonDown("p1A"));
             addForce(moveVec * 15);
             --dashCount;
 
@@ -110,16 +114,18 @@ public class PlayerScript : MonoBehaviour
 
         if (Input.GetAxis("p1RightX") != 0 || Input.GetAxis("p1RightY") != 0)
         {
-            //Debug.Log(Input.GetAxisRaw("p1RightX") + " x    y " + Input.GetAxisRaw("p1RightY"));
 
-            //var aim = Quaternion.LookRotation(Vector3.up, new Vector3(0, 0, Input.GetAxisRaw("p1RightX") + Input.GetAxisRaw("p1RightY") ));
+			//godLIKE
+			float angle = Mathf.Atan2(Input.GetAxis("p1RightX"), Input.GetAxis("p1RightY")) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.Euler (0, 0, angle), Time.deltaTime * 1000);
 
-            //this.transform.rotation = aim;
-
-
-        //localrotation
-        //rotate on z budster
         }
+
+
+		if (Input.GetButtonDown("p1RightBumper")) {
+
+			playerShovel.spinShovel ();
+		}
 
         if (canDig)
         {
@@ -147,7 +153,7 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log(collision.GetComponentInParent<GraveScript>().currentState);
+//        Debug.Log(collision.GetComponentInParent<GraveScript>().currentState);
 
         if (collision.tag == "digRange")
         {
