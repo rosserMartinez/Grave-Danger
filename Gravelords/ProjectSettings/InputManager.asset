@@ -38,6 +38,38 @@ InputManager:
     axis: 3
     joyNum: 1
   - serializedVersion: 3
+    m_Name: p1LeftTrigger
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: left
+    positiveButton: right
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.3
+    sensitivity: 3
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 8
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: p2LeftTrigger
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: left
+    positiveButton: right
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.3
+    sensitivity: 3
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 8
+    joyNum: 2
+  - serializedVersion: 3
     m_Name: p1RightTrigger
     descriptiveName: 
     descriptiveNegativeName: 
@@ -48,11 +80,27 @@ InputManager:
     gravity: 3
     dead: 0.3
     sensitivity: 3
-    snap: 0
+    snap: 1
     invert: 0
     type: 2
-    axis: 2
+    axis: 9
     joyNum: 1
+  - serializedVersion: 3
+    m_Name: p2RightTrigger
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: left
+    positiveButton: right
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.3
+    sensitivity: 3
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 9
+    joyNum: 2
   - serializedVersion: 3
     m_Name: p2RightX
     descriptiveName: 

@@ -10,7 +10,8 @@ public class PlayerScript : MonoBehaviour
     Rigidbody2D rb;
     public GraveScript lastGrave;
 
-    private string RightTrigger;
+    private string LeftTrigger;
+	private string RightTrigger;
     private string LeftBumper;
     private string RightBumper;
 	private string LeftX;
@@ -38,7 +39,12 @@ public class PlayerScript : MonoBehaviour
 
     public bool canDig;
     public bool inHitstun;
-    public bool isAnchored;
+
+    public bool isAnchoredDig;
+	public bool isAnchoredBury;
+
+	public bool shovelDownDig;
+	public bool shovelDownBury;
 
 
     public ShovelScript playerShovel;
@@ -46,7 +52,8 @@ public class PlayerScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        RightTrigger = "p" + playerNum + "RightTrigger";
+        LeftTrigger = "p" + playerNum + "LeftTrigger";
+		RightTrigger = "p" + playerNum + "RightTrigger";
         LeftBumper = "p" + playerNum + "LeftBumper";
         RightBumper = "p" + playerNum + "RightBumper";
         LeftX = "p" + playerNum + "LeftX";
@@ -59,14 +66,15 @@ public class PlayerScript : MonoBehaviour
         playerCol = GetComponent<BoxCollider2D>();
         lastGrave = null;
         inHitstun = false;
-        isAnchored = false;
+
+        isAnchoredDig = false;
+		isAnchoredBury = false;
 
         dashCount = dashMax;
 
 		playerShovel = GetComponentInChildren<ShovelScript> ();
 
-        
-    }
+	}
 
     public void addForce(Vector2 newForce)
     {
@@ -76,27 +84,30 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //movement
-
-        if (Input.GetAxis(RightTrigger) > 0)
+        //check for dig state
+		if (Input.GetAxisRaw(LeftTrigger) == 0)
         {
-            isAnchored = false;
+            isAnchoredDig = false;
         }
 
-        if (!isAnchored)
+		if (Input.GetAxisRaw(RightTrigger) == 0)
+		{
+			isAnchoredBury = false;
+		}
+
+
+		//movement
+		if (!isAnchoredDig && !isAnchoredBury)
         {
 
             Vector2 moveVec = new Vector2(Input.GetAxis(LeftX) * moveSpeed, -Input.GetAxis(LeftY) * moveSpeed);
 
-            //rb.velocity = moveVec;
             addForce(moveVec);
 
-            //Debug.Log(Input.GetButtonDown("p1A"));
 
             //dash
             if (Input.GetButtonDown(LeftBumper) && dashCount > 0)
             {
-                //Debug.Log(Input.GetButtonDown("p1A"));
                 addForce(moveVec * 15);
                 --dashCount;
 
@@ -119,15 +130,10 @@ public class PlayerScript : MonoBehaviour
 
             addForce(-speed * friction);
 
-
             speed = speed + force * Time.deltaTime;
-
-
 
             float magnitude = Mathf.Min(speed.magnitude, maxSpeed);
             speed = speed.normalized * magnitude;
-
-
 
             position = position + speed * Time.deltaTime;
 
@@ -136,6 +142,8 @@ public class PlayerScript : MonoBehaviour
             transform.position = position;
         }
 
+
+		//rotating player
         if (Input.GetAxis(RightX) != 0 || Input.GetAxis(RightY) != 0)
         {
 
@@ -145,35 +153,65 @@ public class PlayerScript : MonoBehaviour
 
         }
 
-
+		//shovel spinning
 		if (Input.GetButtonDown(RightBumper)) {
 
 			playerShovel.spinShovel ();
 		}
 
-        Debug.Log(Input.GetAxis(RightTrigger));
+		
+		//checking states for digging or burying
+		if (canDig && Input.GetAxisRaw(LeftTrigger) > 0)//Input.GetAxis(RightTrigger) > 0)
+		{
+			isAnchoredDig = true;
+		}
+		
+		if (canDig && Input.GetAxisRaw(RightTrigger) > 0)//Input.GetAxis(RightTrigger) > 0)
+		{
+			isAnchoredBury = true;
+		}
 
-        if (canDig && Input.GetAxis(RightTrigger) < 0)
-        {
-            //Debug.Log(Input.GetButtonUp("p1A"));
+		//digging
+		if (isAnchoredDig && !isAnchoredBury) {
+			Debug.Log(Input.GetAxis(RightX));
 
-            isAnchored = true;
+			if (Input.GetAxis(RightX) < 0 && !inHitstun) {
 
+				shovelDownDig = true;
 
-            //if (Input.GetButtonUp("p1X") && !inHitstun && lastGrave.currentState != GraveScript.DigState.DUG)
-            //{
-            //    --lastGrave.currentState;
+			}
 
-            //    lastGrave.updateGraveState();
+			if (shovelDownDig && Input.GetAxis(RightX) > 0 && !inHitstun && lastGrave.currentState != GraveScript.DigState.DUG) {
 
-            //}
-            //else if (Input.GetButtonUp("p1B") && !inHitstun && lastGrave.currentState != GraveScript.DigState.UNDUG)
-            //{
-            //    ++lastGrave.currentState;
+				shovelDownDig = false;
 
-            //    lastGrave.updateGraveState();
-            //}
-        }
+				--lastGrave.currentState;
+				
+				lastGrave.updateGraveState();
+			}
+
+		}
+
+		//burying
+		if (isAnchoredBury && !isAnchoredDig) {
+			Debug.Log(Input.GetAxis(RightX));
+
+			if (Input.GetAxis(RightX) > 0 && !inHitstun) {
+
+				shovelDownBury = true;
+
+			}
+
+			if (shovelDownBury && Input.GetAxis(RightX) < 0 && !inHitstun && lastGrave.currentState != GraveScript.DigState.UNDUG) {
+
+				shovelDownBury = false;
+
+				++lastGrave.currentState;
+
+				lastGrave.updateGraveState();
+			}
+
+		}
 
     }
 
