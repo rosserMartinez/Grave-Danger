@@ -195,7 +195,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4089375007717144, guid: a79e3bc06a5844d408b0fb8c1a664789, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1.42
+      value: -1.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089375007717144, guid: a79e3bc06a5844d408b0fb8c1a664789, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a79e3bc06a5844d408b0fb8c1a664789, type: 2}
@@ -536,6 +540,21 @@ GameObject:
   m_PrefabParentObject: {fileID: 1627937410371252, guid: a79e3bc06a5844d408b0fb8c1a664789,
     type: 2}
   m_PrefabInternal: {fileID: 250200467}
+--- !u!70 &1823164541
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1823164539}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.1108616, y: 0.01176467}
+  m_Size: {x: 2.621335, y: 0.8108192}
+  m_Direction: 1
 --- !u!114 &1823164542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -551,6 +570,7 @@ MonoBehaviour:
   spinTimer: 0
   spinMaxTimer: 0.4
   spinSpeed: 1440
+  shovelNum: 0
 --- !u!1 &1837110990
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,8 +10,15 @@ public class PlayerScript : MonoBehaviour
     Rigidbody2D rb;
     public GraveScript lastGrave;
 
-    public string LeftX;
-    public string LeftY;
+
+	private string BumperString;
+	private string LeftX;
+	private string LeftY;
+	private string RightX;
+	private string RightY;
+	private string AButton;
+
+	public int playerNum;
 
     public float moveSpeed;
     public float maxSpeed;
@@ -48,6 +55,8 @@ public class PlayerScript : MonoBehaviour
         dashCount = dashMax;
 
 		playerShovel = GetComponentInChildren<ShovelScript> ();
+
+		playerNum = 1;
         
     }
 
@@ -155,13 +164,13 @@ public class PlayerScript : MonoBehaviour
     {
 //        Debug.Log(collision.GetComponentInParent<GraveScript>().currentState);
 
-        if (collision.tag == "digRange")
-        {
-            lastGrave = collision.GetComponentInParent<GraveScript>();
+		if (collision.tag == "digRange") {
+			lastGrave = collision.GetComponentInParent<GraveScript> ();
 
-            canDig = true;
-        }
+			canDig = true;
+		}
     }
+
 
     private void OnTriggerExit2D(Collider2D collision)
     {
