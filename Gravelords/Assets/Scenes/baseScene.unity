@@ -117,11 +117,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4707326142662786, guid: a79e3bc06a5844d408b0fb8c1a664789, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -26.231
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 4707326142662786, guid: a79e3bc06a5844d408b0fb8c1a664789, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 10.442
+      value: 4.7
       objectReference: {fileID: 0}
     - target: {fileID: 4707326142662786, guid: a79e3bc06a5844d408b0fb8c1a664789, type: 2}
       propertyPath: m_LocalPosition.z
@@ -146,60 +146,6 @@ Prefab:
     - target: {fileID: 4707326142662786, guid: a79e3bc06a5844d408b0fb8c1a664789, type: 2}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114067017912675112, guid: a79e3bc06a5844d408b0fb8c1a664789,
-        type: 2}
-      propertyPath: moveSpeed
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 114067017912675112, guid: a79e3bc06a5844d408b0fb8c1a664789,
-        type: 2}
-      propertyPath: maxSpeed
-      value: 225
-      objectReference: {fileID: 0}
-    - target: {fileID: 4707326142662786, guid: a79e3bc06a5844d408b0fb8c1a664789, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.50884044
-      objectReference: {fileID: 0}
-    - target: {fileID: 4707326142662786, guid: a79e3bc06a5844d408b0fb8c1a664789, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.50884044
-      objectReference: {fileID: 0}
-    - target: {fileID: 4707326142662786, guid: a79e3bc06a5844d408b0fb8c1a664789, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 0.50884044
-      objectReference: {fileID: 0}
-    - target: {fileID: 114067017912675112, guid: a79e3bc06a5844d408b0fb8c1a664789,
-        type: 2}
-      propertyPath: friction
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 114067017912675112, guid: a79e3bc06a5844d408b0fb8c1a664789,
-        type: 2}
-      propertyPath: dashMax
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114067017912675112, guid: a79e3bc06a5844d408b0fb8c1a664789,
-        type: 2}
-      propertyPath: dashSpeed
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 114067017912675112, guid: a79e3bc06a5844d408b0fb8c1a664789,
-        type: 2}
-      propertyPath: dashResetMaxTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4089375007717144, guid: a79e3bc06a5844d408b0fb8c1a664789, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4089375007717144, guid: a79e3bc06a5844d408b0fb8c1a664789, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -1.47
-      objectReference: {fileID: 0}
-    - target: {fileID: 4089375007717144, guid: a79e3bc06a5844d408b0fb8c1a664789, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a79e3bc06a5844d408b0fb8c1a664789, type: 2}
@@ -535,42 +481,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1823164539 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1627937410371252, guid: a79e3bc06a5844d408b0fb8c1a664789,
-    type: 2}
-  m_PrefabInternal: {fileID: 250200467}
---- !u!70 &1823164541
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1823164539}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.1108616, y: 0.01176467}
-  m_Size: {x: 2.621335, y: 0.8108192}
-  m_Direction: 1
---- !u!114 &1823164542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1823164539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2ee0d5f4b2704243b60b40606f6657f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spinning: 0
-  spinTimer: 0
-  spinMaxTimer: 0.4
-  spinSpeed: 1440
-  shovelNum: 0
 --- !u!1 &1837110990
 GameObject:
   m_ObjectHideFlags: 0

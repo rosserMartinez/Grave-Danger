@@ -10,8 +10,9 @@ public class PlayerScript : MonoBehaviour
     Rigidbody2D rb;
     public GraveScript lastGrave;
 
-
-	private string BumperString;
+    private string RightTrigger;
+    private string LeftBumper;
+    private string RightBumper;
 	private string LeftX;
 	private string LeftY;
 	private string RightX;
@@ -34,29 +35,36 @@ public class PlayerScript : MonoBehaviour
     public int dashMax;
     public float dashResetTimer;
     public float dashResetMaxTime;
-    //public bool dashCooldown;
 
     public bool canDig;
     public bool inHitstun;
+    public bool isAnchored;
 
-	public ShovelScript playerShovel;
+
+    public ShovelScript playerShovel;
 
     // Use this for initialization
     void Start()
     {
-        LeftX = "p1LeftX";
-        LeftY = "p1LeftY";
+        RightTrigger = "p" + playerNum + "RightTrigger";
+        LeftBumper = "p" + playerNum + "LeftBumper";
+        RightBumper = "p" + playerNum + "RightBumper";
+        LeftX = "p" + playerNum + "LeftX";
+        LeftY = "p" + playerNum + "LeftY";
+        RightX = "p" + playerNum + "RightX";
+        RightY = "p" + playerNum + "RightY";
+        AButton = "p" + playerNum + "A";
 
         rb = GetComponent<Rigidbody2D>();
         playerCol = GetComponent<BoxCollider2D>();
         lastGrave = null;
         inHitstun = false;
+        isAnchored = false;
 
         dashCount = dashMax;
 
 		playerShovel = GetComponentInChildren<ShovelScript> ();
 
-		playerNum = 1;
         
     }
 
@@ -70,92 +78,101 @@ public class PlayerScript : MonoBehaviour
     {
         //movement
 
-
-        Vector2 moveVec = new Vector2(Input.GetAxis(LeftX) * moveSpeed, -Input.GetAxis(LeftY) * moveSpeed);
-
-        //rb.velocity = moveVec;
-        addForce(moveVec);
-
-        //Debug.Log(Input.GetButtonDown("p1A"));
-
-        //dash
-        if (Input.GetButtonDown("p1A") && dashCount > 0)
+        if (Input.GetAxis(RightTrigger) > 0)
         {
+            isAnchored = false;
+        }
+
+        if (!isAnchored)
+        {
+
+            Vector2 moveVec = new Vector2(Input.GetAxis(LeftX) * moveSpeed, -Input.GetAxis(LeftY) * moveSpeed);
+
+            //rb.velocity = moveVec;
+            addForce(moveVec);
+
             //Debug.Log(Input.GetButtonDown("p1A"));
-            addForce(moveVec * 15);
-            --dashCount;
 
-            if (dashCount < dashMax)
-            { 
-                dashResetTimer = 0f;
-            }
-        }
-
-        if (dashCount < dashMax && dashResetTimer < dashResetMaxTime)
-        {
-            dashResetTimer += Time.deltaTime;
-
-            if (dashResetTimer >= dashResetMaxTime)
+            //dash
+            if (Input.GetButtonDown(LeftBumper) && dashCount > 0)
             {
-                dashCount++;
-                dashResetTimer = 0f;
+                //Debug.Log(Input.GetButtonDown("p1A"));
+                addForce(moveVec * 15);
+                --dashCount;
+
+                if (dashCount < dashMax)
+                {
+                    dashResetTimer = 0f;
+                }
             }
+
+            if (dashCount < dashMax && dashResetTimer < dashResetMaxTime)
+            {
+                dashResetTimer += Time.deltaTime;
+
+                if (dashResetTimer >= dashResetMaxTime)
+                {
+                    dashCount++;
+                    dashResetTimer = 0f;
+                }
+            }
+
+            addForce(-speed * friction);
+
+
+            speed = speed + force * Time.deltaTime;
+
+
+
+            float magnitude = Mathf.Min(speed.magnitude, maxSpeed);
+            speed = speed.normalized * magnitude;
+
+
+
+            position = position + speed * Time.deltaTime;
+
+            force = Vector2.zero;
+
+            transform.position = position;
         }
 
-        addForce(-speed * friction);
-
-
-        speed = speed + force * Time.deltaTime;
-
-
-
-        var magnitude = Mathf.Min(speed.magnitude, maxSpeed);
-        speed = speed.normalized * magnitude;
-
-
-
-        position = position + speed * Time.deltaTime;
-
-        force = Vector2.zero;
-
-        transform.position = position;
-
-
-        if (Input.GetAxis("p1RightX") != 0 || Input.GetAxis("p1RightY") != 0)
+        if (Input.GetAxis(RightX) != 0 || Input.GetAxis(RightY) != 0)
         {
 
 			//godLIKE
-			float angle = Mathf.Atan2(Input.GetAxis("p1RightX"), Input.GetAxis("p1RightY")) * Mathf.Rad2Deg;
+			float angle = Mathf.Atan2(Input.GetAxis(RightX), Input.GetAxis(RightY)) * Mathf.Rad2Deg;
 			transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.Euler (0, 0, angle), Time.deltaTime * 1000);
 
         }
 
 
-		if (Input.GetButtonDown("p1RightBumper")) {
+		if (Input.GetButtonDown(RightBumper)) {
 
 			playerShovel.spinShovel ();
 		}
 
-        if (canDig)
+        Debug.Log(Input.GetAxis(RightTrigger));
+
+        if (canDig && Input.GetAxis(RightTrigger) < 0)
         {
             //Debug.Log(Input.GetButtonUp("p1A"));
 
-            if (Input.GetButtonUp("p1X") && !inHitstun && lastGrave.currentState != GraveScript.DigState.DUG)
-            {
-                //GamePad.SetVibration(PlayerIndex.One, .3f, .3f);
-                --lastGrave.currentState;
+            isAnchored = true;
 
-                lastGrave.updateGraveState();
 
-                //GamePad.SetVibration(PlayerIndex.One, .0f, .0f);
+            //if (Input.GetButtonUp("p1X") && !inHitstun && lastGrave.currentState != GraveScript.DigState.DUG)
+            //{
+            //    --lastGrave.currentState;
 
-            }
-            else if (Input.GetButtonUp("p1B") && !inHitstun && lastGrave.currentState != GraveScript.DigState.UNDUG)
-            {
-                ++lastGrave.currentState;
+            //    lastGrave.updateGraveState();
 
-                lastGrave.updateGraveState();
-            }
+            //}
+            //else if (Input.GetButtonUp("p1B") && !inHitstun && lastGrave.currentState != GraveScript.DigState.UNDUG)
+            //{
+            //    ++lastGrave.currentState;
+
+            //    lastGrave.updateGraveState();
+            //}
         }
 
     }

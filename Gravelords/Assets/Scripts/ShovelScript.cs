@@ -21,6 +21,7 @@ public class ShovelScript : MonoBehaviour {
 
 		hitbox = GetComponent<CapsuleCollider2D>();
 		shovelNum = GetComponentInParent<PlayerScript> ().playerNum;
+
 	}
 	
 	// Update is called once per frame
@@ -46,16 +47,20 @@ public class ShovelScript : MonoBehaviour {
 		spinTimer = 0f;
 	}
 
-	private void OnCollisionEnter2D(Collision2D collision)
-	{
-		//if (collision.tag == "player" && collision.GetComponent<PlayerScript>().playerNum != shovelNum) 
-		{
-			//Vector2 hitVec = new Vector2 (collision.transform.position.x - transform.position.x,
-			//	collision.transform.position.y - transform.position.y, 0);
+	//private void OnCollisionStay2D(Collision2D collision)
+	//{
+ //       Debug.Log("colliding once");
 
-			//collision.GetComponent<PlayerScript> ().addForce (hitVec * 10);
+ //       if (collision.gameObject.tag == "player" && collision.gameObject.GetComponent<PlayerScript>().playerNum != shovelNum)
+ //       {
+ //           Debug.Log("colliding in if statement");
 
-		}
-	}
+ //           Vector2 hitVec = new Vector2(collision.transform.position.x - transform.position.x,
+ //               collision.transform.position.y - transform.position.y);
+
+ //           collision.gameObject.GetComponent<PlayerScript>().addForce(hitVec * 10);
+
+ //       }
+ //   }
 
 }

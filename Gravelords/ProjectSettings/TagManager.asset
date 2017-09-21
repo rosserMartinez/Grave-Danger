@@ -5,8 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - digRange
-  - p1shovel
-  - p2shovel
+  - player
   layers:
   - Default
   - TransparentFX
