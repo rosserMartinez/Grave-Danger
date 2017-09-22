@@ -22,6 +22,7 @@ public class ShovelScript : MonoBehaviour {
 		hitbox = GetComponent<CapsuleCollider2D>();
 		shovelNum = GetComponentInParent<PlayerScript> ().playerNum;
 
+		hitbox.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -35,6 +36,7 @@ public class ShovelScript : MonoBehaviour {
 			if (spinTimer > spinMaxTimer)
 			{
 				spinning = false;
+				hitbox.enabled = false;
 				transform.localRotation = Quaternion.identity;
 			}
 		}
@@ -44,23 +46,9 @@ public class ShovelScript : MonoBehaviour {
 	{
 		//transform.localRotation = Quaternion.identity;
 		spinning = true;
+		hitbox.enabled = true;
 		spinTimer = 0f;
 	}
 
-	//private void OnCollisionStay2D(Collision2D collision)
-	//{
- //       Debug.Log("colliding once");
-
- //       if (collision.gameObject.tag == "player" && collision.gameObject.GetComponent<PlayerScript>().playerNum != shovelNum)
- //       {
- //           Debug.Log("colliding in if statement");
-
- //           Vector2 hitVec = new Vector2(collision.transform.position.x - transform.position.x,
- //               collision.transform.position.y - transform.position.y);
-
- //           collision.gameObject.GetComponent<PlayerScript>().addForce(hitVec * 10);
-
- //       }
- //   }
 
 }

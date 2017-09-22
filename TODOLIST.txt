@@ -1,5 +1,21 @@
-p2 in game hell yea
+before next week, the following things need to be
+implemented:
 
-p2 knockback on hit
+melee attack collision and force working -today?
 
-then anchor
+enemy undead, follow players around
+	-attack instantly when nearby, knocking players off
+
+dirt count, dirt pickups on hit
+
+hole gameplay / scoring / respawning
+	-if anything falls into the hole they die
+	-you get points based on how many corpses are in hole
+	-player respawns a few seconds after dying
+
+make empty gameobjects for their transform / spawnpoints and stet player
+position on startup
+
+working walls / make the edges kill you respawning
+
+	

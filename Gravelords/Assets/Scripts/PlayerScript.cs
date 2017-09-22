@@ -26,6 +26,10 @@ public class PlayerScript : MonoBehaviour
     public float maxSpeed;
     public float friction;
 
+	public float hitForce;
+	public float hitstunTimer;
+	public float hitstunMaxTimer;
+
     public Vector2 acceleration;
     public Vector2 speed;
     public Vector2 force;
@@ -97,50 +101,45 @@ public class PlayerScript : MonoBehaviour
 
 
 		//movement
-		if (!isAnchoredDig && !isAnchoredBury)
-        {
+		if (!isAnchoredDig && !isAnchoredBury) {
 
-            Vector2 moveVec = new Vector2(Input.GetAxis(LeftX) * moveSpeed, -Input.GetAxis(LeftY) * moveSpeed);
+			Vector2 moveVec = new Vector2 (Input.GetAxis (LeftX) * moveSpeed, -Input.GetAxis (LeftY) * moveSpeed);
 
-            addForce(moveVec);
+			addForce (moveVec);
 
 
-            //dash
-            if (Input.GetButtonDown(LeftBumper) && dashCount > 0)
-            {
-                addForce(moveVec * 15);
-                --dashCount;
+			//dash
+			if (Input.GetButtonDown (LeftBumper) && dashCount > 0) {
+				addForce (moveVec * 15);
+				--dashCount;
 
-                if (dashCount < dashMax)
-                {
-                    dashResetTimer = 0f;
-                }
-            }
+				if (dashCount < dashMax) {
+					dashResetTimer = 0f;
+				}
+			}
 
-            if (dashCount < dashMax && dashResetTimer < dashResetMaxTime)
-            {
-                dashResetTimer += Time.deltaTime;
+			if (dashCount < dashMax && dashResetTimer < dashResetMaxTime) {
+				dashResetTimer += Time.deltaTime;
 
-                if (dashResetTimer >= dashResetMaxTime)
-                {
-                    dashCount++;
-                    dashResetTimer = 0f;
-                }
-            }
+				if (dashResetTimer >= dashResetMaxTime) {
+					dashCount++;
+					dashResetTimer = 0f;
+				}
+			}
+		
+			addForce (-speed * friction);
 
-            addForce(-speed * friction);
+			speed = speed + force * Time.deltaTime;
 
-            speed = speed + force * Time.deltaTime;
+			float magnitude = Mathf.Min (speed.magnitude, maxSpeed);
+			speed = speed.normalized * magnitude;
 
-            float magnitude = Mathf.Min(speed.magnitude, maxSpeed);
-            speed = speed.normalized * magnitude;
+			position = position + speed * Time.deltaTime;
 
-            position = position + speed * Time.deltaTime;
+			force = Vector2.zero;
 
-            force = Vector2.zero;
-
-            transform.position = position;
-        }
+			transform.position = position;
+		}
 
 
 		//rotating player
@@ -215,11 +214,32 @@ public class PlayerScript : MonoBehaviour
 
     }
 
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.tag == "shovel" && collision.GetComponent<ShovelScript>().shovelNum != playerNum)
+		{
+
+			Debug.Log ("adding force?");
+			//hitvec
+			////mine - theirs
+			 
+			Vector2 hitVec = new Vector2(transform.position.x - collision.GetComponentInParent<Transform>().position.x, transform.position.y - collision.GetComponentInParent<Transform>().position.y);
+
+
+			Debug.Log (hitVec);
+
+			//Debug.Log (hitVec.normalized * hitForce);
+
+			addForce (hitVec.normalized * hitForce);
+		}
+	}
+
     private void OnTriggerStay2D(Collider2D collision)
     {
 //        Debug.Log(collision.GetComponentInParent<GraveScript>().currentState);
 
-		if (collision.tag == "digRange") {
+		if (collision.tag == "digRange") 
+		{
 			lastGrave = collision.GetComponentInParent<GraveScript> ();
 
 			canDig = true;
