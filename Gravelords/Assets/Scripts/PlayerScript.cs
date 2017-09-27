@@ -10,6 +10,8 @@ public class PlayerScript : MonoBehaviour
     Rigidbody2D rb;
     public GraveScript lastGrave;
 
+	public RespawnScript spawnManager;
+
     private string LeftTrigger;
 	private string RightTrigger;
     private string LeftBumper;
@@ -77,6 +79,11 @@ public class PlayerScript : MonoBehaviour
         dashCount = dashMax;
 
 		playerShovel = GetComponentInChildren<ShovelScript> ();
+
+
+		spawnManager = GameObject.Find ("RespawnManager").GetComponent<RespawnScript>();
+
+		transform.position = spawnManager.getSpawnpoint(playerNum).position;
 
 	}
 
@@ -226,12 +233,18 @@ public class PlayerScript : MonoBehaviour
 			Vector2 hitVec = new Vector2(transform.position.x - collision.GetComponentInParent<Transform>().position.x, transform.position.y - collision.GetComponentInParent<Transform>().position.y);
 
 
-			Debug.Log (hitVec);
+			//Debug.Log (hitVec);
 
 			//Debug.Log (hitVec.normalized * hitForce);
 
 			addForce (hitVec.normalized * hitForce);
 		}
+        //make sure your objects are tagged, dipshit
+
+        if (collision.tag == "pit")
+        {
+            triggerDeath();
+        }
 	}
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -257,4 +270,14 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    public void triggerDeath()
+    {
+
+        //trigger respawn
+		spawnManager.respawnPlayer(playerNum);
+
+        //trigger grave score increment
+
+		Destroy(this.gameObject);
+    }
 }

@@ -1,21 +1,18 @@
 before next week, the following things need to be
 implemented:
 
-melee attack collision and force working -today?
-
-enemy undead, follow players around
-	-attack instantly when nearby, knocking players off
-
-dirt count, dirt pickups on hit
-
+TUESDAY:
 hole gameplay / scoring / respawning
 	-if anything falls into the hole they die
 	-you get points based on how many corpses are in hole
 	-player respawns a few seconds after dying
 
-make empty gameobjects for their transform / spawnpoints and stet player
-position on startup
+WEDNESDAY: enemy undead, follow players around
+	-attack instantly when nearby, knocking players off
 
-working walls / make the edges kill you respawning
+THURSDAY:
+dirt count, dirt pickups on hit??
+hole stuff and scoring
+def fix digging before this, but you have plenty of time to do it tomorrow
 
-	
+Unix homework on thursday

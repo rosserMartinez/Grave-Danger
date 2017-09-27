@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114824168704483182}
   m_Layer: 0
   m_Name: spade
-  m_TagString: Untagged
+  m_TagString: shovel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1759385676514572}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.16, y: 4.65, z: 4.08}
+  m_LocalPosition: {x: 5.46, y: 3.93, z: 0}
   m_LocalScale: {x: 0.50884044, y: 0.50884044, z: 0.50884044}
   m_Children:
   - {fileID: 4307846539908958}
@@ -129,7 +129,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.1108616, y: 0.01176467}
@@ -151,17 +151,24 @@ MonoBehaviour:
   moveSpeed: 160
   maxSpeed: 225
   friction: 14
+  hitForce: 3500
+  hitstunTimer: 0
+  hitstunMaxTimer: 0
   acceleration: {x: 0, y: 0}
   speed: {x: 0, y: 0}
   force: {x: 0, y: 0}
   position: {x: 0.7001161, y: 8.549116}
-  dashCount: 2
+  dashCount: 0
   dashSpeed: 15
   dashMax: 2
   dashResetTimer: 0
   dashResetMaxTime: 1
   canDig: 0
   inHitstun: 0
+  isAnchoredDig: 0
+  isAnchoredBury: 0
+  shovelDownDig: 0
+  shovelDownBury: 0
   playerShovel: {fileID: 114824168704483182}
 --- !u!114 &114824168704483182
 MonoBehaviour:
@@ -254,7 +261,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: fa0b477ac5ea8074d947bb9e099ea645, type: 3}
-  m_Color: {r: 0.2827587, g: 0, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.048275948, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

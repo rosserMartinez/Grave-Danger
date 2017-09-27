@@ -7,6 +7,7 @@ TagManager:
   - digRange
   - player
   - shovel
+  - pit
   layers:
   - Default
   - TransparentFX
