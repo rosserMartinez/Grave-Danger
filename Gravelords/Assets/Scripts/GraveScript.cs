@@ -8,6 +8,8 @@ public class GraveScript : MonoBehaviour {
 
     CapsuleCollider2D cap;
 
+    public int scoreValue;
+
     public Sprite dugSprite;
     public Sprite halfSprite;
     public Sprite undugSprite;
@@ -19,6 +21,8 @@ public class GraveScript : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        scoreValue = 0;
+
         rend = GetComponent<SpriteRenderer>();
         cap = GetComponentInChildren<CapsuleCollider2D>();
 
@@ -49,5 +53,15 @@ public class GraveScript : MonoBehaviour {
             rend.sprite = undugSprite;
             cap.enabled = false;
         }
+    }
+
+    public void incrementHoleScore()
+    {
+        ++scoreValue;
+    }
+
+    public void cashout()
+    {
+        scoreValue = 0;
     }
 }

@@ -63,7 +63,7 @@ public class RespawnScript : MonoBehaviour {
 			if (respawnTimerP2 == 0)
 			{
 				p2Respawning = false;
-				Instantiate (player2, p2Respawn);
+				Instantiate (player2, p2Respawn.position, Quaternion.identity);
 			}        
 		}
 

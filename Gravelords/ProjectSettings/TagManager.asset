@@ -8,6 +8,8 @@ TagManager:
   - player
   - shovel
   - pit
+  - grave
+  - dirt
   layers:
   - Default
   - TransparentFX

@@ -147,7 +147,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lastGrave: {fileID: 0}
+  spawnManager: {fileID: 0}
+  scoreManager: {fileID: 0}
   playerNum: 2
+  dirtPrefab: {fileID: 1849297739818540, guid: 07615062fcca8d446a72aba47df0a292, type: 2}
+  dirtCount: 0
   moveSpeed: 160
   maxSpeed: 225
   friction: 14

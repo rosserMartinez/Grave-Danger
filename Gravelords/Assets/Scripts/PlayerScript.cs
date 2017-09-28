@@ -11,7 +11,8 @@ public class PlayerScript : MonoBehaviour
     public GraveScript lastGrave;
 
 	public RespawnScript spawnManager;
-
+    public ScoreScript scoreManager;
+    
     private string LeftTrigger;
 	private string RightTrigger;
     private string LeftBumper;
@@ -23,6 +24,9 @@ public class PlayerScript : MonoBehaviour
 	private string AButton;
 
 	public int playerNum;
+
+    public GameObject dirtPrefab;
+    public int dirtCount;
 
     public float moveSpeed;
     public float maxSpeed;
@@ -76,14 +80,19 @@ public class PlayerScript : MonoBehaviour
         isAnchoredDig = false;
 		isAnchoredBury = false;
 
+        dirtCount = 0;
         dashCount = dashMax;
 
 		playerShovel = GetComponentInChildren<ShovelScript> ();
 
+        acceleration = Vector2.zero;
+        force = Vector2.zero;
+        speed = Vector2.zero;
 
-		spawnManager = GameObject.Find ("RespawnManager").GetComponent<RespawnScript>();
+        spawnManager = GameObject.Find ("RespawnManager").GetComponent<RespawnScript>();
+        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreScript>();
 
-		transform.position = spawnManager.getSpawnpoint(playerNum).position;
+        transform.position = spawnManager.getSpawnpoint(playerNum).position;
 
 	}
 
@@ -189,6 +198,8 @@ public class PlayerScript : MonoBehaviour
 
 			if (shovelDownDig && Input.GetAxis(RightX) > 0 && !inHitstun && lastGrave.currentState != GraveScript.DigState.DUG) {
 
+                ++dirtCount;
+
 				shovelDownDig = false;
 
 				--lastGrave.currentState;
@@ -202,19 +213,30 @@ public class PlayerScript : MonoBehaviour
 		if (isAnchoredBury && !isAnchoredDig) {
 			Debug.Log(Input.GetAxis(RightX));
 
-			if (Input.GetAxis(RightX) > 0 && !inHitstun) {
+			if (dirtCount > 0 && Input.GetAxis(RightX) > 0 && !inHitstun) {
 
 				shovelDownBury = true;
 
 			}
 
-			if (shovelDownBury && Input.GetAxis(RightX) < 0 && !inHitstun && lastGrave.currentState != GraveScript.DigState.UNDUG) {
+			if (dirtCount > 0 && shovelDownBury && Input.GetAxis(RightX) < 0 && !inHitstun && lastGrave.currentState != GraveScript.DigState.UNDUG) {
 
 				shovelDownBury = false;
+
+                --dirtCount;
 
 				++lastGrave.currentState;
 
 				lastGrave.updateGraveState();
+
+                if (lastGrave.currentState == GraveScript.DigState.UNDUG)
+                {
+                    //scoremanager
+                    scoreManager.incrementPlayerScore(playerNum, lastGrave.scoreValue);
+
+                    lastGrave.cashout();
+
+                }
 			}
 
 		}
@@ -223,27 +245,47 @@ public class PlayerScript : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
+        //make sure your objects are tagged, dipshit
 		if (collision.tag == "shovel" && collision.GetComponent<ShovelScript>().shovelNum != playerNum)
 		{
 
-			Debug.Log ("adding force?");
-			//hitvec
-			////mine - theirs
+			//Debug.Log ("adding force?");
 			 
 			Vector2 hitVec = new Vector2(transform.position.x - collision.GetComponentInParent<Transform>().position.x, transform.position.y - collision.GetComponentInParent<Transform>().position.y);
 
-
-			//Debug.Log (hitVec);
-
-			//Debug.Log (hitVec.normalized * hitForce);
-
 			addForce (hitVec.normalized * hitForce);
+
+            //drop dirt
+            if (dirtCount > 0)
+            {
+                Debug.Log("dropping dirt");
+                dropDirt();
+            }
 		}
-        //make sure your objects are tagged, dipshit
+
+
+        if (collision.tag == "grave")
+        {
+            dropDirt();
+
+            collision.GetComponentInParent<GraveScript>().incrementHoleScore();
+
+            triggerDeath();
+
+        }
 
         if (collision.tag == "pit")
         {
+
+            dropDirt();
+
             triggerDeath();
+        }
+
+        if (collision.tag == "dirt")
+        {
+            ++dirtCount;
+            Destroy(collision.gameObject);
         }
 	}
 
@@ -276,8 +318,17 @@ public class PlayerScript : MonoBehaviour
         //trigger respawn
 		spawnManager.respawnPlayer(playerNum);
 
-        //trigger grave score increment
-
 		Destroy(this.gameObject);
     }
+
+    public void dropDirt()
+    {
+        if (dirtCount > 0)
+        {
+         --dirtCount;
+        }
+
+         Instantiate(dirtPrefab, transform.position, Quaternion.identity);
+    }
+
 }
