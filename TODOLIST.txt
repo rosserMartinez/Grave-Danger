@@ -1,7 +1,24 @@
-before next week, the following things need to be
-implemented:
+going forward to playable state
 
-THURSDAY -> as far as you can get on 
+-> NEED UI even if its basic
 
-enemy undead, follow players around
-	-attack instantly when nearby, knocking players off
+starting timer:
+ready...FIGHT!
+BACK ON THE HORSE
+
+-----ELEMENTS REQUIRED
+>graves must display current point values on them
+>score on kill, maybe display it on death?
+>total score for each player displayed constantly
+>timer? or first to X points
+maybe UI at the top kinda like dota
+
+scoring improves
+>points for digging
+>points on killing player
+
+once a player hits the end, time.timescale .35
+wINNER!!
+
+runback or main menu for losing player
+main menus are legit just start round or quit

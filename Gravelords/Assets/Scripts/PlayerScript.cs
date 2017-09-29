@@ -263,6 +263,24 @@ public class PlayerScript : MonoBehaviour
             }
 		}
 
+		if (collision.tag == "undead")
+		{
+
+			//Debug.Log ("adding force?");
+
+			Vector2 hitVec = new Vector2(transform.position.x - collision.GetComponentInParent<Transform>().position.x, transform.position.y - collision.GetComponentInParent<Transform>().position.y);
+
+			addForce (hitVec.normalized * hitForce * 1.8f);
+
+			//drop dirt
+			if (dirtCount > 0)
+			{
+				Debug.Log("dropping dirt");
+				dropDirt();
+			}
+		}
+
+//be cool
 
         if (collision.tag == "grave")
         {
@@ -276,7 +294,6 @@ public class PlayerScript : MonoBehaviour
 
         if (collision.tag == "pit")
         {
-
             dropDirt();
 
             triggerDeath();
@@ -325,10 +342,14 @@ public class PlayerScript : MonoBehaviour
     {
         if (dirtCount > 0)
         {
-         --dirtCount;
+
+			for (int i = 0; i < dirtCount; ++i) {
+				
+				--dirtCount;
+				Instantiate(dirtPrefab, transform.position, Quaternion.identity);
+			}
         }
 
-         Instantiate(dirtPrefab, transform.position, Quaternion.identity);
     }
 
 }

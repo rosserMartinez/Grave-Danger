@@ -10,6 +10,7 @@ TagManager:
   - pit
   - grave
   - dirt
+  - undead
   layers:
   - Default
   - TransparentFX
