@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 70685387317438340}
   m_Layer: 0
   m_Name: holeCollider
-  m_TagString: Untagged
+  m_TagString: grave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,8 +79,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1747483583100542}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.4, y: 4.58, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.0565934, y: 0.18686438, z: 0}
   m_LocalScale: {x: 0.7630229, y: 0.7630229, z: 0.7630229}
   m_Children:
   - {fileID: 4443332192729288}
@@ -135,11 +135,11 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.044205666}
-  m_Size: {x: 2, y: 4.881119}
+  m_Size: {x: 1.4, y: 4.5}
   m_Direction: 0
 --- !u!114 &114126557777845424
 MonoBehaviour:
@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230d6c755309ce548849b5faf5d5ed55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreValue: 0
   dugSprite: {fileID: 21300000, guid: 2fc8cbfc1937835489b2458504004e57, type: 3}
   halfSprite: {fileID: 21300000, guid: c59644a7303791c4fb0d541eb6e5b552, type: 3}
   undugSprite: {fileID: 21300000, guid: b79bc98147d920f40a6d08dbbf69cf57, type: 3}

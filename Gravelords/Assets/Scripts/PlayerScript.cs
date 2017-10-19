@@ -24,6 +24,8 @@ public class PlayerScript : MonoBehaviour
 	private string AButton;
 
 	public int playerNum;
+	public int enemyPlayerNum;
+	private int scoreInt = 1;
 
     public GameObject dirtPrefab;
     public int dirtCount;
@@ -76,6 +78,9 @@ public class PlayerScript : MonoBehaviour
         playerCol = GetComponent<BoxCollider2D>();
         lastGrave = null;
         inHitstun = false;
+
+		//get enemy player num once lol this took me years
+		enemyPlayerNum = (playerNum == 1) ? 2 : 1;
 
         isAnchoredDig = false;
 		isAnchoredBury = false;
@@ -188,7 +193,7 @@ public class PlayerScript : MonoBehaviour
 
 		//digging
 		if (isAnchoredDig && !isAnchoredBury) {
-			Debug.Log(Input.GetAxis(RightX));
+	//		Debug.Log(Input.GetAxis(RightX));
 
 			if (Input.GetAxis(RightX) < 0 && !inHitstun) {
 
@@ -205,13 +210,23 @@ public class PlayerScript : MonoBehaviour
 				--lastGrave.currentState;
 				
 				lastGrave.updateGraveState();
+
+
+
+				if (lastGrave.currentState == GraveScript.DigState.DUG)
+				{
+					//scoremanager
+					scoreManager.incrementPlayerScore (playerNum, scoreInt);
+
+				}
+
 			}
 
 		}
 
 		//burying
 		if (isAnchoredBury && !isAnchoredDig) {
-			Debug.Log(Input.GetAxis(RightX));
+			//Debug.Log(Input.GetAxis(RightX));
 
 			if (dirtCount > 0 && Input.GetAxis(RightX) > 0 && !inHitstun) {
 
@@ -225,9 +240,12 @@ public class PlayerScript : MonoBehaviour
 
                 --dirtCount;
 
+
 				++lastGrave.currentState;
 
 				lastGrave.updateGraveState();
+
+
 
                 if (lastGrave.currentState == GraveScript.DigState.UNDUG)
                 {
@@ -247,10 +265,7 @@ public class PlayerScript : MonoBehaviour
 	{
         //make sure your objects are tagged, dipshit
 		if (collision.tag == "shovel" && collision.GetComponent<ShovelScript>().shovelNum != playerNum)
-		{
-
-			//Debug.Log ("adding force?");
-			 
+		{			 
 			Vector2 hitVec = new Vector2(transform.position.x - collision.GetComponentInParent<Transform>().position.x, transform.position.y - collision.GetComponentInParent<Transform>().position.y);
 
 			addForce (hitVec.normalized * hitForce);
@@ -258,16 +273,13 @@ public class PlayerScript : MonoBehaviour
             //drop dirt
             if (dirtCount > 0)
             {
-                Debug.Log("dropping dirt");
+              //  Debug.Log("dropping dirt");
                 dropDirt();
             }
 		}
 
 		if (collision.tag == "undead")
 		{
-
-			//Debug.Log ("adding force?");
-
 			Vector2 hitVec = new Vector2(transform.position.x - collision.GetComponentInParent<Transform>().position.x, transform.position.y - collision.GetComponentInParent<Transform>().position.y);
 
 			addForce (hitVec.normalized * hitForce * 1.8f);
@@ -275,12 +287,10 @@ public class PlayerScript : MonoBehaviour
 			//drop dirt
 			if (dirtCount > 0)
 			{
-				Debug.Log("dropping dirt");
+			//	Debug.Log("dropping dirt");
 				dropDirt();
 			}
 		}
-
-//be cool
 
         if (collision.tag == "grave")
         {
@@ -289,7 +299,6 @@ public class PlayerScript : MonoBehaviour
             collision.GetComponentInParent<GraveScript>().incrementHoleScore();
 
             triggerDeath();
-
         }
 
         if (collision.tag == "pit")
@@ -334,6 +343,7 @@ public class PlayerScript : MonoBehaviour
 
         //trigger respawn
 		spawnManager.respawnPlayer(playerNum);
+		scoreManager.incrementPlayerScore (enemyPlayerNum, scoreInt);
 
 		Destroy(this.gameObject);
     }

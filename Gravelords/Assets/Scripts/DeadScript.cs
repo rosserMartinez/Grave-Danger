@@ -34,7 +34,7 @@ public class DeadScript : MonoBehaviour {
 
 		if (coll.gameObject.tag == "shovel" && coll.gameObject.GetComponentInParent<PlayerScript>() != null) 
 		{
-			Debug.Log ("collision occuring");
+			//Debug.Log ("collision occuring");
 			
 			lastPlayerDetected = coll.gameObject.GetComponentInParent<PlayerScript> ();
 

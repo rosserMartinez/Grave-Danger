@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GraveScript : MonoBehaviour {
 
@@ -18,6 +19,9 @@ public class GraveScript : MonoBehaviour {
 
     public DigState currentState;
 
+	public Text graveText;
+//	public float transparency = .6f;
+
     // Use this for initialization
     void Start()
     {
@@ -28,6 +32,9 @@ public class GraveScript : MonoBehaviour {
 
         currentState = DigState.UNDUG;
         updateGraveState();
+
+		graveText.text = scoreValue.ToString();
+		//graveText.material.color = new Color(graveText.material.color.r, graveText.material.color.g, graveText.material.color.b, 1.0f);
     }
 
     // Update is called once per frame
@@ -58,10 +65,15 @@ public class GraveScript : MonoBehaviour {
     public void incrementHoleScore()
     {
         ++scoreValue;
+
+		graveText.text = scoreValue.ToString();
+
     }
 
     public void cashout()
     {
         scoreValue = 0;
+
+		graveText.text = scoreValue.ToString();
     }
 }
