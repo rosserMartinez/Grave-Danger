@@ -747,6 +747,42 @@ Prefab:
       propertyPath: graveText3
       value: 
       objectReference: {fileID: 697748219}
+    - target: {fileID: 114226563270778882, guid: 07ba7ab4270aad3418695318bb0e61f4,
+        type: 2}
+      propertyPath: p1TextColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114226563270778882, guid: 07ba7ab4270aad3418695318bb0e61f4,
+        type: 2}
+      propertyPath: p1TextColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114226563270778882, guid: 07ba7ab4270aad3418695318bb0e61f4,
+        type: 2}
+      propertyPath: p1TextColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114226563270778882, guid: 07ba7ab4270aad3418695318bb0e61f4,
+        type: 2}
+      propertyPath: p2TextColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114226563270778882, guid: 07ba7ab4270aad3418695318bb0e61f4,
+        type: 2}
+      propertyPath: p2TextColor.g
+      value: 0.42068958
+      objectReference: {fileID: 0}
+    - target: {fileID: 114226563270778882, guid: 07ba7ab4270aad3418695318bb0e61f4,
+        type: 2}
+      propertyPath: p2TextColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114226563270778882, guid: 07ba7ab4270aad3418695318bb0e61f4,
+        type: 2}
+      propertyPath: spawnTextObject
+      value: 
+      objectReference: {fileID: 1902339584184196, guid: 772e64f19c6dfb940b746bfd1348d6b8,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 07ba7ab4270aad3418695318bb0e61f4, type: 2}
   m_IsPrefabParent: 0

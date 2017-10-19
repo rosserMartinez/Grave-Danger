@@ -16,10 +16,14 @@ public class ScoreScript : MonoBehaviour {
 	public Text goalText;
 	public Text startText;
 
-
 	public Text graveText1;
 	public Text graveText2;
 	public Text graveText3;
+
+	private GameObject tmp;
+	public GameObject spawnTextObject;
+	public Color p1TextColor;
+	public Color p2TextColor;
 
 	public bool gameStart;
 	public bool gameOver;
@@ -161,7 +165,7 @@ public class ScoreScript : MonoBehaviour {
 		}
     }
 
-	public void incrementPlayerScore (int playerNum, int scoreToAdd)
+	public void incrementPlayerScore (int playerNum, int scoreToAdd, Transform textPos)
     {
 		if (!gameOver) {
 			
@@ -170,6 +174,19 @@ public class ScoreScript : MonoBehaviour {
             p1Score += scoreToAdd;
 			p1Text.text = p1Score.ToString();
 			
+				tmp = Instantiate (spawnTextObject, textPos.position, Quaternion.identity);
+			
+				if (tmp.GetComponent<FloatScript>() != null)
+				{
+					FloatScript pointsText = tmp.GetComponent<FloatScript> ();
+
+					//alter values for the heads up
+					pointsText.points = scoreToAdd;
+					//pointsText.textObj.color = p1TextColor;
+
+				}
+
+
 			if (p1Score >= goalPoints) 
 			{
 				winString = "PLAYER 1 WINS!";
@@ -194,6 +211,18 @@ public class ScoreScript : MonoBehaviour {
         {
             p2Score += scoreToAdd;
 			p2Text.text = p2Score.ToString();
+
+				tmp = Instantiate (spawnTextObject, textPos.position, Quaternion.identity);
+
+				if (tmp.GetComponent<FloatScript>() != null)
+				{
+					FloatScript pointsText = tmp.GetComponent<FloatScript> ();
+
+					//alter values for the heads up
+					pointsText.points = scoreToAdd;
+					//pointsText.textObj.color = p2TextColor;
+
+				}
 
 			if (p2Score >= goalPoints) 
 			{

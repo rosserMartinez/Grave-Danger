@@ -99,6 +99,8 @@ public class PlayerScript : MonoBehaviour
 
         transform.position = spawnManager.getSpawnpoint(playerNum).position;
 
+		position = transform.position;
+
 	}
 
     public void addForce(Vector2 newForce)
@@ -201,7 +203,7 @@ public class PlayerScript : MonoBehaviour
 
 			}
 
-			if (shovelDownDig && Input.GetAxis(RightX) > 0 && !inHitstun && lastGrave.currentState != GraveScript.DigState.DUG) {
+			if (lastGrave != null && shovelDownDig && Input.GetAxis(RightX) > 0 && !inHitstun && lastGrave.currentState != GraveScript.DigState.DUG) {
 
                 ++dirtCount;
 
@@ -216,7 +218,7 @@ public class PlayerScript : MonoBehaviour
 				if (lastGrave.currentState == GraveScript.DigState.DUG)
 				{
 					//scoremanager
-					scoreManager.incrementPlayerScore (playerNum, scoreInt);
+					scoreManager.incrementPlayerScore (playerNum, scoreInt, transform);
 
 				}
 
@@ -250,7 +252,10 @@ public class PlayerScript : MonoBehaviour
                 if (lastGrave.currentState == GraveScript.DigState.UNDUG)
                 {
                     //scoremanager
-                    scoreManager.incrementPlayerScore(playerNum, lastGrave.scoreValue);
+					if (lastGrave.scoreValue > 0) 
+					{
+						scoreManager.incrementPlayerScore(playerNum, lastGrave.scoreValue, transform);
+					}
 
                     lastGrave.cashout();
 
@@ -343,7 +348,7 @@ public class PlayerScript : MonoBehaviour
 
         //trigger respawn
 		spawnManager.respawnPlayer(playerNum);
-		scoreManager.incrementPlayerScore (enemyPlayerNum, scoreInt);
+		scoreManager.incrementPlayerScore (enemyPlayerNum, scoreInt, this.transform);
 
 		Destroy(this.gameObject);
     }
