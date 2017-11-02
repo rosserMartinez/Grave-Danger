@@ -2,8 +2,11 @@ left to do:
 SHADER HIGHLIGHTING FOR GRAVES
 
 ASK ABOUT:
-undead pathfinding
 advice on dirt throwing system
+
+-> get normals from collisions and throw dirt
+that way
+
 players not colliding with eachother
 
 

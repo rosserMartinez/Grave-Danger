@@ -12,7 +12,8 @@ public class PlayerScript : MonoBehaviour
 
 	public RespawnScript spawnManager;
     public ScoreScript scoreManager;
-    
+	public CollisionScript collManager;
+
     private string LeftTrigger;
 	private string RightTrigger;
     private string LeftBumper;
@@ -27,8 +28,7 @@ public class PlayerScript : MonoBehaviour
 	public int enemyPlayerNum;
 	private int scoreInt = 1;
 
-    public GameObject dirtPrefab;
-    public int dirtCount;
+    public GameObject flowerPrefab;
 
     public float moveSpeed;
     public float maxSpeed;
@@ -85,7 +85,6 @@ public class PlayerScript : MonoBehaviour
         isAnchoredDig = false;
 		isAnchoredBury = false;
 
-        dirtCount = 0;
         dashCount = dashMax;
 
 		playerShovel = GetComponentInChildren<ShovelScript> ();
@@ -96,6 +95,8 @@ public class PlayerScript : MonoBehaviour
 
         spawnManager = GameObject.Find ("RespawnManager").GetComponent<RespawnScript>();
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreScript>();
+		collManager = GameObject.Find("CollisionManager").GetComponent<CollisionScript>();
+
 
         transform.position = spawnManager.getSpawnpoint(playerNum).position;
 
@@ -205,8 +206,6 @@ public class PlayerScript : MonoBehaviour
 
 			if (lastGrave != null && shovelDownDig && Input.GetAxis(RightX) > 0 && !inHitstun && lastGrave.currentState != GraveScript.DigState.DUG) {
 
-                ++dirtCount;
-
 				shovelDownDig = false;
 
 				--lastGrave.currentState;
@@ -230,18 +229,15 @@ public class PlayerScript : MonoBehaviour
 		if (isAnchoredBury && !isAnchoredDig) {
 			//Debug.Log(Input.GetAxis(RightX));
 
-			if (dirtCount > 0 && Input.GetAxis(RightX) > 0 && !inHitstun) {
+			if ( Input.GetAxis(RightX) > 0 && !inHitstun) {
 
 				shovelDownBury = true;
 
 			}
 
-			if (dirtCount > 0 && shovelDownBury && Input.GetAxis(RightX) < 0 && !inHitstun && lastGrave.currentState != GraveScript.DigState.UNDUG) {
+			if (shovelDownBury && Input.GetAxis(RightX) < 0 && !inHitstun && lastGrave.currentState != GraveScript.DigState.UNDUG) {
 
 				shovelDownBury = false;
-
-                --dirtCount;
-
 
 				++lastGrave.currentState;
 
@@ -269,63 +265,33 @@ public class PlayerScript : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
         //make sure your objects are tagged, dipshit
-		if (collision.tag == "shovel" && collision.GetComponent<ShovelScript>().shovelNum != playerNum)
+		if (collision.CompareTag("shovel") && collision.GetComponent<ShovelScript>().shovelNum != playerNum)
 		{			 
-			Vector2 hitVec = new Vector2(transform.position.x - collision.GetComponentInParent<Transform>().position.x, transform.position.y - collision.GetComponentInParent<Transform>().position.y);
-
-			addForce (hitVec.normalized * hitForce);
-
-            //drop dirt
-            if (dirtCount > 0)
-            {
-              //  Debug.Log("dropping dirt");
-                dropDirt();
-            }
+			collManager.sendCollisionData (collision.gameObject, this.gameObject, CollisionScript.CollisionType.SHOVEL_PLAYER);
 		}
 
-
-		if (collision.gameObject.tag == "undead")
+		if (collision.CompareTag("undead") && playerShovel.spinning == false)
 		{
-
-			Vector2 hitVec = new Vector2(transform.position.x - collision.transform.position.x, transform.position.y - collision.transform.position.y);
-
-			addForce (hitVec.normalized * hitForce * 1.8f);
-
-			if (dirtCount > 0)
-			{
-				//  Debug.Log("dropping dirt");
-				dropDirt();
-			}
+			collManager.sendCollisionData (collision.gameObject, this.gameObject, CollisionScript.CollisionType.UNDEAD_PLAYER);
 		}
 
-        if (collision.tag == "grave")
+		if (collision.CompareTag("grave"))
         {
-            dropDirt();
-
-            collision.GetComponentInParent<GraveScript>().incrementHoleScore();
-
-            triggerDeath();
+			collManager.sendCollisionData (this.gameObject, collision.gameObject, CollisionScript.CollisionType.PLAYER_GRAVE);
         }
 
-        if (collision.tag == "pit")
+		if (collision.CompareTag("pit"))
         {
-            dropDirt();
-
-            triggerDeath();
+			collManager.sendCollisionData (this.gameObject, collision.gameObject, CollisionScript.CollisionType.PLAYER_PIT);
         }
-
-        if (collision.tag == "dirt")
-        {
-            ++dirtCount;
-            Destroy(collision.gameObject);
-        }
+			
 	}
 
     private void OnTriggerStay2D(Collider2D collision)
     {
 //        Debug.Log(collision.GetComponentInParent<GraveScript>().currentState);
 
-		if (collision.tag == "digRange") 
+		if (collision.CompareTag("digRange") )
 		{
 			lastGrave = collision.GetComponentInParent<GraveScript> ();
 
@@ -336,7 +302,7 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "digRange")
+		if (collision.CompareTag("digRange"))
         {
             lastGrave = null;
 
@@ -353,19 +319,6 @@ public class PlayerScript : MonoBehaviour
 
 		Destroy(this.gameObject);
     }
-
-    public void dropDirt()
-    {
-        if (dirtCount > 0)
-        {
-
-			for (int i = 0; i < dirtCount; ++i) {
-				
-				--dirtCount;
-				Instantiate(dirtPrefab, transform.position, Quaternion.identity);
-			}
-        }
-
-    }
+		
 
 }

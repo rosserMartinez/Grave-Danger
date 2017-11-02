@@ -9,7 +9,7 @@ public class DeadScript : MonoBehaviour {
 	public Vector2 lastPlayerDetected;
 	public bool? pathToPlayer1;
 
-	CircleCollider2D sightRange;
+	public CollisionScript collManager;
 
 	public Vector2 speed;
 	public Vector2 force;
@@ -32,6 +32,7 @@ public class DeadScript : MonoBehaviour {
 
 		position = transform.position;
 
+		collManager = GameObject.Find("CollisionManager").GetComponent<CollisionScript>();
 	}
 
 	public void addForce(Vector2 newForce)
@@ -82,41 +83,25 @@ public class DeadScript : MonoBehaviour {
 
 	public void OnTriggerEnter2D(Collider2D coll)
 	{
-		if (coll.gameObject.tag == "shovel") 
+		if (coll.CompareTag("shovel")) 
 		{
-			Vector2 hitVec = new Vector2(transform.position.x - coll.transform.position.x, transform.position.y - coll.transform.position.y);
-
-			addForce (hitVec.normalized * hitForce * 1.8f);
-
+			collManager.sendCollisionData(coll.gameObject, this.gameObject, CollisionScript.CollisionType.SHOVEL_UNDEAD);
 		}	
 	}
 
 	public void OnTriggerStay2D(Collider2D coll)
 	{
-		if (coll.gameObject.tag == "shovel") 
-		{
 
+		if (coll.CompareTag ("pit")) 
+		{
+			collManager.sendCollisionData (this.gameObject, coll.gameObject, CollisionScript.CollisionType.UNDEAD_PIT);
 		}
 
-		if (coll.gameObject.tag == "pit") 
+		if (coll.CompareTag("grave")) 
 		{
-			triggerDeathAgain ();
-		}
-
-		if (coll.gameObject.tag == "grave") 
-		{
-			triggerDeathAgain ();
-			coll.GetComponentInParent<GraveScript>().incrementHoleScore();
+			collManager.sendCollisionData(this.gameObject, coll.gameObject, CollisionScript.CollisionType.UNDEAD_GRAVE);
 		}
 			
-	}
-
-	public void OnTriggerExit2D(Collider2D collision)
-	{
-		if (collision.gameObject.tag == "shovel")
-		{
-		//	lastPlayerDetected = null;
-		}
 	}
 
 	public void triggerDeathAgain()

@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1900235332277570}
+  m_IsPrefabParent: 1
+--- !u!1 &1900235332277570
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4999615915017902}
+  - component: {fileID: 114226563270778882}
+  m_Layer: 0
+  m_Name: ScoreManager 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4999615915017902
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1900235332277570}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.545202, y: 4.6829457, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114226563270778882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1900235332277570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eac1eb8a2c3af5d4a977080b4eca80a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  p1Score: 0
+  p2Score: 0
+  startMessage: 0
+  p1Text: {fileID: 0}
+  p2Text: {fileID: 0}
+  goalText: {fileID: 0}
+  startText: {fileID: 0}
+  graveText1: {fileID: 0}
+  graveText2: {fileID: 0}
+  graveText3: {fileID: 0}
+  respawn: {fileID: 0}
+  spawnTextObject: {fileID: 1902339584184196, guid: 772e64f19c6dfb940b746bfd1348d6b8,
+    type: 2}
+  p1TextColor: {r: 1, g: 0, b: 0, a: 0}
+  p2TextColor: {r: 0, g: 0.42068958, b: 1, a: 0}
+  gameStart: 0
+  gameOver: 0
+  startTimer: 2
+  fightTime: 0.6
+  goalPoints: 15

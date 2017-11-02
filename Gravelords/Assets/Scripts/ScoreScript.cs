@@ -33,10 +33,15 @@ public class ScoreScript : MonoBehaviour {
 	public float fightTime;
 	public bool? p1Won;
 
+	//messages
 	private string baseString;
 	private string winString;
 	private string startString;
 	private string endString;
+
+	public string gameLevel;
+	public string startLevel;
+
 
 	//menu controls
 	private string p1Back;
@@ -145,14 +150,14 @@ public class ScoreScript : MonoBehaviour {
 			if (p1Won == true && Input.GetButtonDown(p2Start))
 			{
 				//Debug.Log ("p2 runback");
-				SceneManager.LoadScene ("baseScene");
+				SceneManager.LoadScene (gameLevel);
 			}
 			
 			//p1 runback
 			if (p1Won == false && Input.GetButtonDown(p1Start))
 			{
 				//Debug.Log ("p1 runback");
-				SceneManager.LoadScene ("baseScene");
+				SceneManager.LoadScene (gameLevel);
 			}
 			
 			
@@ -160,14 +165,14 @@ public class ScoreScript : MonoBehaviour {
 			if (p1Won == true && Input.GetButtonDown(p2Back))
 			{
 				//Debug.Log ("p2 quit");
-				SceneManager.LoadScene ("baseScene");
+				SceneManager.LoadScene (startLevel);
 			}
 			
 			//p1 quit
 			if (p1Won == false && Input.GetButtonDown(p1Back))
 			{
 				//Debug.Log ("p1 quit");
-				SceneManager.LoadScene ("baseScene");
+				SceneManager.LoadScene (startLevel);
 			}
 
 
