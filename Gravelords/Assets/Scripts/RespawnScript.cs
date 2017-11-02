@@ -4,20 +4,31 @@ using UnityEngine;
 
 public class RespawnScript : MonoBehaviour {
 
+	public static GameObject player1Instance;
+	public static GameObject player2Instance;
 
     public GameObject player1;
     public GameObject player2;
+
+	public GraveScript grave1;
+	public GraveScript grave2;
+	public GraveScript grave3;
+
 
     public Transform p1Respawn;
     public Transform p2Respawn;
 
     public float respawnTimerP1;
     public float respawnTimerP2;
+	public float respawnTimerUndead;
 
     public bool p1Respawning;
     public bool p2Respawning;
+	public bool undeadSpawning;
+
 
     public float respawnTimerMax;
+	public float undeadSpawnMax;
 
 	public int player1Num;
 	public int player2Num;
@@ -25,16 +36,19 @@ public class RespawnScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        p1Respawning = false;
-        p2Respawning = false;
+		p1Respawning = true;
+		p2Respawning = true;
+		undeadSpawning = true;
 
-        respawnTimerP1 = respawnTimerMax;
-        respawnTimerP2 = respawnTimerMax;
+		respawnTimerP1 = respawnTimerMax;
+		respawnTimerP2 = respawnTimerMax;
+		respawnTimerUndead = 2f;
 
 		player1Num = player1.GetComponent<PlayerScript>().playerNum;
 		player2Num = player2.GetComponent<PlayerScript>().playerNum;
+
     }
-	
+
 	// Update is called once per frame
 	void Update () {
 
@@ -49,7 +63,8 @@ public class RespawnScript : MonoBehaviour {
             if (respawnTimerP1 == 0)
             {
                 p1Respawning = false;
-				Instantiate (player1, p1Respawn);
+				player1Instance = Instantiate (player1, p1Respawn);
+
             }
         }
 
@@ -63,10 +78,27 @@ public class RespawnScript : MonoBehaviour {
 			if (respawnTimerP2 == 0)
 			{
 				p2Respawning = false;
-				Instantiate (player2, p2Respawn.position, Quaternion.identity);
+				player2Instance = Instantiate (player2, p2Respawn);
+
 			}        
 		}
 
+		if (undeadSpawning) {
+
+			respawnTimerUndead -= Time.deltaTime;
+
+			respawnTimerUndead = Mathf.Max (respawnTimerUndead, 0);
+
+			if (respawnTimerUndead == 0) {
+				//p2Respawning = false;
+
+				grave1.spawnUndead ();
+				grave2.spawnUndead ();
+				grave3.spawnUndead ();
+
+				respawnTimerUndead = undeadSpawnMax;
+			}        
+		}
 	}
 
 

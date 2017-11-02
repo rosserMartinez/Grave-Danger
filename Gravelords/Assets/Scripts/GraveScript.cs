@@ -9,6 +9,8 @@ public class GraveScript : MonoBehaviour {
 
     CapsuleCollider2D cap;
 
+	//apublic GameObject ;
+
     public int scoreValue;
 
     public Sprite dugSprite;
@@ -21,6 +23,8 @@ public class GraveScript : MonoBehaviour {
 
 	public Text graveText;
 //	public float transparency = .6f;
+
+	public GameObject undead;
 
     // Use this for initialization
     void Start()
@@ -76,4 +80,15 @@ public class GraveScript : MonoBehaviour {
 
 		graveText.text = scoreValue.ToString();
     }
+
+	public void spawnUndead()
+	{
+		if (currentState == DigState.UNDUG) {
+
+			Instantiate (undead, transform.position, Quaternion.identity);
+
+		}
+	}
+
+
 }

@@ -20,6 +20,8 @@ public class ScoreScript : MonoBehaviour {
 	public Text graveText2;
 	public Text graveText3;
 
+	public RespawnScript respawn;
+
 	private GameObject tmp;
 	public GameObject spawnTextObject;
 	public Color p1TextColor;
@@ -104,6 +106,11 @@ public class ScoreScript : MonoBehaviour {
 		startText.text = startString;
 		startText.fontSize = startSize;
 
+
+		respawn.respawnPlayer (1);
+		respawn.respawnPlayer (2);
+
+
     }
 
     // Update is called once per frame
@@ -123,6 +130,8 @@ public class ScoreScript : MonoBehaviour {
 			//start game
 			gameStart = true;
 			startText.enabled = false;
+			p1Text.enabled = true;
+			p2Text.enabled = true;
 			graveText1.enabled = true;
 			graveText2.enabled = true;
 			graveText3.enabled = true;

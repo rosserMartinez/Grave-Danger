@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4063265764617194}
   - component: {fileID: 61309684523101944}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: digRange
   m_TagString: digRange
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4443332192729288}
   - component: {fileID: 70685387317438340}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: holeCollider
   m_TagString: grave
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 4362669544514338}
   - component: {fileID: 212853086045179536}
   - component: {fileID: 114126557777845424}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: grave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,6 +157,8 @@ MonoBehaviour:
   halfSprite: {fileID: 21300000, guid: c59644a7303791c4fb0d541eb6e5b552, type: 3}
   undugSprite: {fileID: 21300000, guid: b79bc98147d920f40a6d08dbbf69cf57, type: 3}
   currentState: 0
+  graveText: {fileID: 0}
+  undead: {fileID: 0}
 --- !u!212 &212853086045179536
 SpriteRenderer:
   m_ObjectHideFlags: 1

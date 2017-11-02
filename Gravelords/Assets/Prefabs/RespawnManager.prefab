@@ -109,12 +109,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: decf645e974378e4987fb5f60893a867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 0}
-  player2: {fileID: 0}
-  p1Respawn: {fileID: 0}
-  p2Respawn: {fileID: 0}
+  player1: {fileID: 1169426837739268, guid: a79e3bc06a5844d408b0fb8c1a664789, type: 2}
+  player2: {fileID: 1759385676514572, guid: 8e996044cf1c48b4184334b8b2a28be4, type: 2}
+  grave1: {fileID: 0}
+  grave2: {fileID: 0}
+  grave3: {fileID: 0}
+  p1Respawn: {fileID: 4446107924028950}
+  p2Respawn: {fileID: 4250615397267852}
   respawnTimerP1: 0
   respawnTimerP2: 0
+  respawnTimerUndead: 0
   p1Respawning: 0
   p2Respawning: 0
-  respawnTimerMax: 3
+  undeadSpawning: 0
+  respawnTimerMax: 0.7
+  undeadSpawnMax: 6
+  player1Num: 0
+  player2Num: 0

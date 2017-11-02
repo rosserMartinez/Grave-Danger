@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212386720616912080}
   - component: {fileID: 70050445174957798}
   - component: {fileID: 114824168704483182}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: spade
   m_TagString: shovel
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114680775299010562}
   - component: {fileID: 50878133279970078}
   - component: {fileID: 61255533012554782}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: burgerking
   m_TagString: player
   m_Icon: {fileID: 0}
@@ -150,6 +150,7 @@ MonoBehaviour:
   spawnManager: {fileID: 0}
   scoreManager: {fileID: 0}
   playerNum: 2
+  enemyPlayerNum: 0
   dirtPrefab: {fileID: 1849297739818540, guid: 07615062fcca8d446a72aba47df0a292, type: 2}
   dirtCount: 0
   moveSpeed: 160

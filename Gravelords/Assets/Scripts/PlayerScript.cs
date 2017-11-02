@@ -283,16 +283,17 @@ public class PlayerScript : MonoBehaviour
             }
 		}
 
-		if (collision.tag == "undead")
+
+		if (collision.gameObject.tag == "undead")
 		{
-			Vector2 hitVec = new Vector2(transform.position.x - collision.GetComponentInParent<Transform>().position.x, transform.position.y - collision.GetComponentInParent<Transform>().position.y);
+
+			Vector2 hitVec = new Vector2(transform.position.x - collision.transform.position.x, transform.position.y - collision.transform.position.y);
 
 			addForce (hitVec.normalized * hitForce * 1.8f);
 
-			//drop dirt
 			if (dirtCount > 0)
 			{
-			//	Debug.Log("dropping dirt");
+				//  Debug.Log("dropping dirt");
 				dropDirt();
 			}
 		}
