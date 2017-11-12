@@ -11,6 +11,7 @@ TagManager:
   - grave
   - dirt
   - undead
+  - flowers
   layers:
   - Default
   - TransparentFX
@@ -25,8 +26,8 @@ TagManager:
   - undead
   - grave
   - pit
-  - 
-  - 
+  - flowers
+  - undeadcollisions
   - 
   - 
   - 

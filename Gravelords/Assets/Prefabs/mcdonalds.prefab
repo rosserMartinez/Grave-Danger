@@ -149,10 +149,13 @@ MonoBehaviour:
   lastGrave: {fileID: 0}
   spawnManager: {fileID: 0}
   scoreManager: {fileID: 0}
+  collManager: {fileID: 0}
   playerNum: 1
   enemyPlayerNum: 0
-  dirtPrefab: {fileID: 1849297739818540, guid: 07615062fcca8d446a72aba47df0a292, type: 2}
-  dirtCount: 0
+  flowerPrefab: {fileID: 1152415572070306, guid: fc5ae60ac6b1e1a4291cc94576d08f41,
+    type: 2}
+  flowerScoreInt: 3
+  flowerForce: 100
   moveSpeed: 160
   maxSpeed: 225
   friction: 14
@@ -264,7 +267,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: fa0b477ac5ea8074d947bb9e099ea645, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0

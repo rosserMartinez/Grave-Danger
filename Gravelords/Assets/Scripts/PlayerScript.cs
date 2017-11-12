@@ -23,12 +23,15 @@ public class PlayerScript : MonoBehaviour
 	private string RightX;
 	private string RightY;
 	private string AButton;
+	private string RightStickClick;
 
 	public int playerNum;
 	public int enemyPlayerNum;
 	private int scoreInt = 1;
 
     public GameObject flowerPrefab;
+	public int flowerScoreInt = 3;
+	public float flowerForce = 1000;
 
     public float moveSpeed;
     public float maxSpeed;
@@ -52,6 +55,8 @@ public class PlayerScript : MonoBehaviour
     public bool canDig;
     public bool inHitstun;
 
+	bool prevUp, prevDown;
+
     public bool isAnchoredDig;
 	public bool isAnchoredBury;
 
@@ -73,6 +78,8 @@ public class PlayerScript : MonoBehaviour
         RightX = "p" + playerNum + "RightX";
         RightY = "p" + playerNum + "RightY";
         AButton = "p" + playerNum + "A";
+		RightStickClick = "p" + playerNum + "RightStickClick";
+
 
         rb = GetComponent<Rigidbody2D>();
         playerCol = GetComponent<BoxCollider2D>();
@@ -125,7 +132,7 @@ public class PlayerScript : MonoBehaviour
 
 
 		//movement
-		if (!isAnchoredDig && !isAnchoredBury) {
+		//if (!isAnchoredDig && !isAnchoredBury) {
 
 			Vector2 moveVec = new Vector2 (Input.GetAxis (LeftX) * moveSpeed, -Input.GetAxis (LeftY) * moveSpeed);
 
@@ -163,7 +170,7 @@ public class PlayerScript : MonoBehaviour
 			force = Vector2.zero;
 
 			transform.position = position;
-		}
+		//}
 
 
 		//rotating player
@@ -182,16 +189,94 @@ public class PlayerScript : MonoBehaviour
 			playerShovel.spinShovel ();
 		}
 
-		
-		//checking states for digging or burying
-		if (canDig && Input.GetAxisRaw(LeftTrigger) > 0)//Input.GetAxis(RightTrigger) > 0)
-		{
-			isAnchoredDig = true;
+		//flower throw
+		if (Input.GetButtonDown(RightStickClick)) {
+
+			throwFlowers ();
 		}
+
+
+		bool isDown = Input.GetAxisRaw(LeftTrigger) == 1;
+		bool isUp = Input.GetAxisRaw(LeftTrigger) == 0;
+		bool neither = !isUp && !isDown;
+
+
+		if (isUp && prevDown) {
+			
+			//dig
+			--lastGrave.currentState;
+			
+			lastGrave.updateGraveState();
+			
+			if (lastGrave.currentState == GraveScript.DigState.DUG)
+			{
+				//scoremanager
+				scoreManager.incrementPlayerScore (playerNum, scoreInt, transform);
+			}
+		}
+		
+		//if trigger is up & was previously down
+		//do digging
+
+		if (isDown) {
+			
+			prevDown = true;
+
+		}
+
+		if (isUp) {
+			prevDown = false;
+		}
+
+
+
+
+
+
+
+
+		//checking states for digging or burying
+		/*if (canDig && Input.GetAxisRaw(LeftTrigger) > 0)//Input.GetAxis(RightTrigger) > 0)
+		{
+
+
+			shovelDownDig = true;
+
+			Debug.Log ("shoveldown");
+			
+			if (lastGrave != null && shovelDownDig && lastGrave.currentState != GraveScript.DigState.DUG) {
+
+				if (Input.GetAxisRaw(LeftTrigger) == 0) {
+					
+					
+					
+				}
+			}
+		}*/
+		
+		//prevUp = isUp;
+		//prevDown = isDown;
 		
 		if (canDig && Input.GetAxisRaw(RightTrigger) > 0)//Input.GetAxis(RightTrigger) > 0)
 		{
-			isAnchoredBury = true;
+			++lastGrave.currentState;
+			
+			lastGrave.updateGraveState();
+			
+			
+			
+			if (lastGrave.currentState == GraveScript.DigState.UNDUG)
+			{
+				//scoremanager
+				if (lastGrave.scoreValue > 0) 
+				{
+					scoreManager.incrementPlayerScore(playerNum, lastGrave.scoreValue, transform);
+				}
+				
+				lastGrave.cashout();
+				
+			}
+			
 		}
 
 		//digging
@@ -200,26 +285,6 @@ public class PlayerScript : MonoBehaviour
 
 			if (Input.GetAxis(RightX) < 0 && !inHitstun) {
 
-				shovelDownDig = true;
-
-			}
-
-			if (lastGrave != null && shovelDownDig && Input.GetAxis(RightX) > 0 && !inHitstun && lastGrave.currentState != GraveScript.DigState.DUG) {
-
-				shovelDownDig = false;
-
-				--lastGrave.currentState;
-				
-				lastGrave.updateGraveState();
-
-
-
-				if (lastGrave.currentState == GraveScript.DigState.DUG)
-				{
-					//scoremanager
-					scoreManager.incrementPlayerScore (playerNum, scoreInt, transform);
-
-				}
 
 			}
 
@@ -235,27 +300,10 @@ public class PlayerScript : MonoBehaviour
 
 			}
 
-			if (shovelDownBury && Input.GetAxis(RightX) < 0 && !inHitstun && lastGrave.currentState != GraveScript.DigState.UNDUG) {
+			if (shovelDownBury && Input.GetAxis(RightX) < 0 && !inHitstun && lastGrave != null && lastGrave.currentState != GraveScript.DigState.UNDUG) {
 
 				shovelDownBury = false;
 
-				++lastGrave.currentState;
-
-				lastGrave.updateGraveState();
-
-
-
-                if (lastGrave.currentState == GraveScript.DigState.UNDUG)
-                {
-                    //scoremanager
-					if (lastGrave.scoreValue > 0) 
-					{
-						scoreManager.incrementPlayerScore(playerNum, lastGrave.scoreValue, transform);
-					}
-
-                    lastGrave.cashout();
-
-                }
 			}
 
 		}
@@ -272,7 +320,7 @@ public class PlayerScript : MonoBehaviour
 
 		if (collision.CompareTag("undead") && playerShovel.spinning == false)
 		{
-			collManager.sendCollisionData (collision.gameObject, this.gameObject, CollisionScript.CollisionType.UNDEAD_PLAYER);
+			collManager.sendCollisionData (collision.gameObject.transform.parent.gameObject, this.gameObject, CollisionScript.CollisionType.UNDEAD_PLAYER);
 		}
 
 		if (collision.CompareTag("grave"))
@@ -285,6 +333,13 @@ public class PlayerScript : MonoBehaviour
 			collManager.sendCollisionData (this.gameObject, collision.gameObject, CollisionScript.CollisionType.PLAYER_PIT);
         }
 			
+		if (collision.CompareTag("pit"))
+		{
+			collManager.sendCollisionData (this.gameObject, collision.gameObject, CollisionScript.CollisionType.PLAYER_PIT);
+		}
+		if (collision.CompareTag ("flowers")) {
+			collManager.sendCollisionData (collision.gameObject, this.gameObject, CollisionScript.CollisionType.FLOWER_PLAYER);
+		}
 	}
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -312,13 +367,29 @@ public class PlayerScript : MonoBehaviour
 
     public void triggerDeath()
     {
+		Destroy(this.gameObject);
 
         //trigger respawn
 		spawnManager.respawnPlayer(playerNum);
 		scoreManager.incrementPlayerScore (enemyPlayerNum, scoreInt, this.transform);
 
-		Destroy(this.gameObject);
     }
+
+	public void pickupFlowers()
+	{
+		scoreManager.incrementPlayerScore (playerNum, flowerScoreInt, this.transform);
+	}
 		
+	public void throwFlowers()
+	{
+		if (scoreManager.getPlayerScore(playerNum) - flowerScoreInt >= 0) {
+			
+			scoreManager.incrementPlayerScore (playerNum, -flowerScoreInt, this.transform);
+
+			GameObject tmp = Instantiate (flowerPrefab, transform.position, Quaternion.identity);
+
+			tmp.GetComponent<Rigidbody2D> ().AddForce (transform.up * flowerForce);
+		}
+	}
 
 }

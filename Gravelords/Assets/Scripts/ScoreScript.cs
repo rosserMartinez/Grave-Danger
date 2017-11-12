@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class ScoreScript : MonoBehaviour {
 
@@ -135,6 +136,7 @@ public class ScoreScript : MonoBehaviour {
 			//start game
 			gameStart = true;
 			startText.enabled = false;
+			goalText.enabled = true;
 			p1Text.enabled = true;
 			p2Text.enabled = true;
 			graveText1.enabled = true;
@@ -185,41 +187,44 @@ public class ScoreScript : MonoBehaviour {
 			
         if (playerNum == 1)
         {
-            p1Score += scoreToAdd;
+
+		   	p1Score += scoreToAdd;
 			p1Text.text = p1Score.ToString();
-			
+
+//				p1Text.gameObject.transform.DOPunchScale (Vector3.one * 1.3f,0.3f);
+		   	
 				tmp = Instantiate (spawnTextObject, textPos.position, Quaternion.identity);
-			
+		   	
 				if (tmp.GetComponent<FloatScript>() != null)
 				{
 					FloatScript pointsText = tmp.GetComponent<FloatScript> ();
-
+		   	
 					//alter values for the heads up
 					pointsText.points = scoreToAdd;
 					//pointsText.textObj.color = p1TextColor;
-
+		   	
 				}
-
-
-			if (p1Score >= goalPoints) 
-			{
+		   	
+		   	
+			if 	(p1Score >= goalPoints) 
+			{  	
 				winString = "PLAYER 1 WINS!";
 				goalText.text = winString;
 				gameOver = true;
 				startText.enabled = true;
-
+		   	
 				graveText1.enabled = false;
 				graveText2.enabled = false;
 				graveText3.enabled = false;
 				
 				//slowmo?
 				Time.timeScale = .5f;
-
+		   	
 				startText.text = endString;
 				startText.fontSize = endSize;
 				
 				p1Won = true;
-			}
+			}  	
         }
         else if (playerNum == 2)
         {
@@ -261,5 +266,13 @@ public class ScoreScript : MonoBehaviour {
 
 		}
     }
+
+	public int getPlayerScore(int playerNum)
+	{
+		if (playerNum == 1)
+			return p1Score;
+		else
+			return p2Score;
+	}
 
 }

@@ -23,7 +23,10 @@ public class CollisionScript : MonoBehaviour {
 		SHOVEL_UNDEAD,
 		UNDEAD_GRAVE,
 		UNDEAD_PIT,
-		UNDEAD_PLAYER
+		UNDEAD_PLAYER,
+		FLOWER_PLAYER,
+		FLOWER_GRAVE,
+		FLOWER_PIT
 
 	}
 
@@ -39,64 +42,76 @@ public class CollisionScript : MonoBehaviour {
 
 	public void sendCollisionData(GameObject a, GameObject b, CollisionType c)
 	{
-		if (c == CollisionType.SHOVEL_PLAYER) {
-			
+
+		switch (c) {
+		case CollisionType.SHOVEL_PLAYER:
 			player = b.GetComponent<PlayerScript> ();
-
+			
 			Vector2 hitVec = new Vector2 (b.transform.position.x - a.transform.position.x, b.transform.position.y - a.transform.position.y);
-
+			
 			player.addForce (hitVec.normalized * playerHitForce);
-
-		} 
-		else if (c == CollisionType.PLAYER_GRAVE) 
-		{
-
+			break;
+		case CollisionType.PLAYER_GRAVE:
 			player = a.GetComponent<PlayerScript> ();
 			grave = b.GetComponentInParent<GraveScript> ();
-
+			
 			grave.incrementHoleScore ();
-
+			
 			player.triggerDeath ();
-
-		}
-		else if (c == CollisionType.PLAYER_PIT) 
-		{
+			break;
+		case CollisionType.PLAYER_PIT:
 			player = a.GetComponent<PlayerScript> ();
-
+			
 			player.triggerDeath ();
-		} 
-		else if (c == CollisionType.SHOVEL_UNDEAD)
-		{
+			break;
+
+		case CollisionType.SHOVEL_UNDEAD:
 			undead = b.GetComponent<DeadScript> ();
+			
+			Vector2 hitVecShovel = new Vector2 (b.transform.position.x - a.transform.position.x, b.transform.position.y - a.transform.position.y);
+			
+			undead.addForce (hitVecShovel.normalized * undeadHitForce);
+			break;
 
-			Vector2 hitVec = new Vector2 (b.transform.position.x - a.transform.position.x, b.transform.position.y - a.transform.position.y);
-
-			undead.addForce (hitVec.normalized * undeadHitForce);
-
-		}
-		else if (c == CollisionType.UNDEAD_GRAVE)
-		{
+		case CollisionType.UNDEAD_GRAVE:
 			undead = a.GetComponent<DeadScript> ();
 			grave = b.GetComponentInParent<GraveScript> ();
-
+			
 			undead.triggerDeathAgain ();
-			grave.incrementHoleScore();
-		}
-		else if (c == CollisionType.UNDEAD_PIT)
-		{
+			grave.incrementHoleScore ();
+			break;
+
+		case CollisionType.UNDEAD_PIT:
 			undead = a.GetComponent<DeadScript> ();
-
+			
 			undead.triggerDeathAgain ();
+			break;
+
+		case CollisionType.UNDEAD_PLAYER:
+			player = b.GetComponent<PlayerScript> ();
+			
+			Vector2 hitVecUndead = new Vector2 (b.transform.position.x - a.transform.position.x, b.transform.position.y - a.transform.position.y);
+			
+			player.addForce (hitVecUndead.normalized * undeadHitForce);
+			break;
+
+		case CollisionType.FLOWER_PLAYER:
+			player = b.GetComponent<PlayerScript> ();
+			player.pickupFlowers ();
+			Destroy (a.gameObject);
+			break;
+
+		case CollisionType.FLOWER_GRAVE:
+			Destroy (a.gameObject);
+			break;
+
+		case CollisionType.FLOWER_PIT:
+			Destroy (a.gameObject);
+			break;
+		default:
+			break;
 		}
-		else if (c == CollisionType.UNDEAD_PLAYER)
-		{
-			player = b.GetComponent<PlayerScript>();
 
-			Vector2 hitVec = new Vector2(b.transform.position.x - a.transform.position.x, b.transform.position.y - a.transform.position.y);
-
-			player.addForce(hitVec.normalized * undeadHitForce);
-
-		}
 
 	}
 

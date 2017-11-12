@@ -9,6 +9,8 @@ public class DeadScript : MonoBehaviour {
 	public Vector2 lastPlayerDetected;
 	public bool? pathToPlayer1;
 
+	Rigidbody2D rb;
+
 	public CollisionScript collManager;
 
 	public Vector2 speed;
@@ -32,12 +34,14 @@ public class DeadScript : MonoBehaviour {
 
 		position = transform.position;
 
+		rb = GetComponent<Rigidbody2D> ();
 		collManager = GameObject.Find("CollisionManager").GetComponent<CollisionScript>();
 	}
 
 	public void addForce(Vector2 newForce)
 	{
-		force += newForce;
+		//force += newForce;
+		rb.AddForce (newForce);
 	}
 
 
@@ -63,11 +67,16 @@ public class DeadScript : MonoBehaviour {
 
 		moveVec = new Vector2 (lastPlayerDetected.x - transform.position.x, lastPlayerDetected.y - transform.position.y).normalized;
 
-		addForce (moveVec * moveSpeed);
+		rb.AddForce (moveVec * moveSpeed);
 
-		addForce (-speed * friction);
+		rb.AddForce ((-speed * friction));
 
-		speed = speed + force * Time.deltaTime;
+		//addForce (moveVec * moveSpeed);
+
+		//addForce (-speed * friction);
+		/*
+		//DONT DO THESE 
+		 speed = speed + force * Time.deltaTime;
 
 		float magnitude = Mathf.Min (speed.magnitude, maxSpeed);
 		speed = speed.normalized * magnitude;
@@ -76,8 +85,8 @@ public class DeadScript : MonoBehaviour {
 
 		force = Vector2.zero;
 
-		transform.position = position;
-
+		transform.position = position; */
+		//DONT DO THESE 
 	}
 
 
