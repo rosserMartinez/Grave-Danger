@@ -33,6 +33,8 @@ public class CollisionScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		//Time.timeScale = .25f;
+
 	}
 	
 	// Update is called once per frame

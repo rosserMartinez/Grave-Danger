@@ -173,10 +173,6 @@ MonoBehaviour:
   dashResetMaxTime: 1
   canDig: 0
   inHitstun: 0
-  isAnchoredDig: 0
-  isAnchoredBury: 0
-  shovelDownDig: 0
-  shovelDownBury: 0
   playerShovel: {fileID: 114158667098397736}
 --- !u!114 &114158667098397736
 MonoBehaviour:
@@ -191,7 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spinning: 0
   spinTimer: 0
-  spinMaxTimer: 0.4
+  spinMaxTimer: 0.25
   spinSpeed: 1440
   shovelNum: 1
 --- !u!212 &212460121467439792

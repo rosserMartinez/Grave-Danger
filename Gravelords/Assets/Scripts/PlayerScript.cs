@@ -45,6 +45,7 @@ public class PlayerScript : MonoBehaviour
     public Vector2 speed;
     public Vector2 force;
     public Vector2 position;
+	//public Vector2 moveVec;
 
     public int dashCount;
     public float dashSpeed;
@@ -55,14 +56,7 @@ public class PlayerScript : MonoBehaviour
     public bool canDig;
     public bool inHitstun;
 
-	bool prevUp, prevDown;
-
-    public bool isAnchoredDig;
-	public bool isAnchoredBury;
-
-	public bool shovelDownDig;
-	public bool shovelDownBury;
-
+	bool prevUpRight, prevUpLeft, prevDownLeft, prevDownRight;
 
     public ShovelScript playerShovel;
 
@@ -88,9 +82,6 @@ public class PlayerScript : MonoBehaviour
 
 		//get enemy player num once lol this took me years
 		enemyPlayerNum = (playerNum == 1) ? 2 : 1;
-
-        isAnchoredDig = false;
-		isAnchoredBury = false;
 
         dashCount = dashMax;
 
@@ -119,21 +110,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //check for dig state
-		if (Input.GetAxisRaw(LeftTrigger) == 0)
-        {
-            isAnchoredDig = false;
-        }
-
-		if (Input.GetAxisRaw(RightTrigger) == 0)
-		{
-			isAnchoredBury = false;
-		}
-
-
-		//movement
-		//if (!isAnchoredDig && !isAnchoredBury) {
-
+      
 			Vector2 moveVec = new Vector2 (Input.GetAxis (LeftX) * moveSpeed, -Input.GetAxis (LeftY) * moveSpeed);
 
 			addForce (moveVec);
@@ -196,117 +173,76 @@ public class PlayerScript : MonoBehaviour
 		}
 
 
-		bool isDown = Input.GetAxisRaw(LeftTrigger) == 1;
-		bool isUp = Input.GetAxisRaw(LeftTrigger) == 0;
-		bool neither = !isUp && !isDown;
+		bool isDownLeft = Input.GetAxisRaw(LeftTrigger) == 1;
+		bool isUpLeft = Input.GetAxisRaw(LeftTrigger) == 0;
+		//bool neither = !isUpLeft && !isDownLeft;
 
+		if (isUpLeft && prevDownLeft) {
 
-		if (isUp && prevDown) {
-			
-			//dig
-			--lastGrave.currentState;
-			
-			lastGrave.updateGraveState();
-			
-			if (lastGrave.currentState == GraveScript.DigState.DUG)
-			{
-				//scoremanager
-				scoreManager.incrementPlayerScore (playerNum, scoreInt, transform);
-			}
+            if (lastGrave != null)
+            {
+			    //dig
+			    --lastGrave.currentState;
+			    
+			    lastGrave.updateGraveState();
+			    
+			    if (lastGrave.currentState == GraveScript.DigState.DUG)
+			    {
+			    	//scoremanager
+			    	scoreManager.incrementPlayerScore (playerNum, scoreInt, transform);
+			    }
+            }
 		}
 		
 		//if trigger is up & was previously down
 		//do digging
+		if (isDownLeft) {
 
-		if (isDown) {
-			
-			prevDown = true;
+            prevDownLeft = true;
 
 		}
 
-		if (isUp) {
-			prevDown = false;
+		if (isUpLeft) {
+            prevDownLeft = false;
 		}
 
+        bool isDownRight = Input.GetAxisRaw(RightTrigger) == 1;
+        bool isUpRight = Input.GetAxisRaw(RightTrigger) == 0;
 
+        if (isUpRight && prevDownRight)
+        {
 
+            if (lastGrave != null)
+            {
+                ++lastGrave.currentState;
 
+                lastGrave.updateGraveState();
 
+                if (lastGrave.currentState == GraveScript.DigState.UNDUG)
+                {
+                    //scoremanager
+                    if (lastGrave.scoreValue > 0)
+                    {
+                        scoreManager.incrementPlayerScore(playerNum, lastGrave.scoreValue, transform);
+                    }
 
+                    lastGrave.cashout();
+                }
 
+            }
+        }
 
-		//checking states for digging or burying
-		/*if (canDig && Input.GetAxisRaw(LeftTrigger) > 0)//Input.GetAxis(RightTrigger) > 0)
+        //if trigger is up & was previously down
+        //do digging
+        if (isDownRight)
 		{
+            prevDownRight = true;
+        }
 
-
-			shovelDownDig = true;
-
-			Debug.Log ("shoveldown");
-			
-			if (lastGrave != null && shovelDownDig && lastGrave.currentState != GraveScript.DigState.DUG) {
-
-				if (Input.GetAxisRaw(LeftTrigger) == 0) {
-					
-					
-					
-				}
-			}
-		}*/
-		
-		//prevUp = isUp;
-		//prevDown = isDown;
-		
-		if (canDig && Input.GetAxisRaw(RightTrigger) > 0)//Input.GetAxis(RightTrigger) > 0)
-		{
-			++lastGrave.currentState;
-			
-			lastGrave.updateGraveState();
-			
-			
-			
-			if (lastGrave.currentState == GraveScript.DigState.UNDUG)
-			{
-				//scoremanager
-				if (lastGrave.scoreValue > 0) 
-				{
-					scoreManager.incrementPlayerScore(playerNum, lastGrave.scoreValue, transform);
-				}
-				
-				lastGrave.cashout();
-				
-			}
-			
-		}
-
-		//digging
-		if (isAnchoredDig && !isAnchoredBury) {
-	//		Debug.Log(Input.GetAxis(RightX));
-
-			if (Input.GetAxis(RightX) < 0 && !inHitstun) {
-
-
-			}
-
-		}
-
-		//burying
-		if (isAnchoredBury && !isAnchoredDig) {
-			//Debug.Log(Input.GetAxis(RightX));
-
-			if ( Input.GetAxis(RightX) > 0 && !inHitstun) {
-
-				shovelDownBury = true;
-
-			}
-
-			if (shovelDownBury && Input.GetAxis(RightX) < 0 && !inHitstun && lastGrave != null && lastGrave.currentState != GraveScript.DigState.UNDUG) {
-
-				shovelDownBury = false;
-
-			}
-
-		}
+        if (isUpRight)
+        {
+            prevDownRight = false;
+        }
 
     }
 
@@ -333,10 +269,6 @@ public class PlayerScript : MonoBehaviour
 			collManager.sendCollisionData (this.gameObject, collision.gameObject, CollisionScript.CollisionType.PLAYER_PIT);
         }
 			
-		if (collision.CompareTag("pit"))
-		{
-			collManager.sendCollisionData (this.gameObject, collision.gameObject, CollisionScript.CollisionType.PLAYER_PIT);
-		}
 		if (collision.CompareTag ("flowers")) {
 			collManager.sendCollisionData (collision.gameObject, this.gameObject, CollisionScript.CollisionType.FLOWER_PLAYER);
 		}
@@ -344,8 +276,6 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-//        Debug.Log(collision.GetComponentInParent<GraveScript>().currentState);
-
 		if (collision.CompareTag("digRange") )
 		{
 			lastGrave = collision.GetComponentInParent<GraveScript> ();
@@ -370,9 +300,10 @@ public class PlayerScript : MonoBehaviour
 		Destroy(this.gameObject);
 
         //trigger respawn
+        //Debug.Log("Triggering death");
+
 		spawnManager.respawnPlayer(playerNum);
 		scoreManager.incrementPlayerScore (enemyPlayerNum, scoreInt, this.transform);
-
     }
 
 	public void pickupFlowers()

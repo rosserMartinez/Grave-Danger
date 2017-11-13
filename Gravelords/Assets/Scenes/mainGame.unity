@@ -243,6 +243,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114075649204349268, guid: 81e655f2474b59246bb0269a30b7b4e8,
+        type: 2}
+      propertyPath: undeadHitForce
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 114075649204349268, guid: 81e655f2474b59246bb0269a30b7b4e8,
+        type: 2}
+      propertyPath: playerHitForce
+      value: 2750
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 81e655f2474b59246bb0269a30b7b4e8, type: 2}
   m_IsPrefabParent: 0

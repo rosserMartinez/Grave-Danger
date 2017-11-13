@@ -4,6 +4,9 @@ flowers???
 come back to it once you fix movement for undead
 
 
+TODAY:
+undead qol, convert movement to strictly rigidbody
+
 QOL
 undead are too strong
 knockback is too hard / stacks with multiple

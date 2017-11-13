@@ -191,7 +191,7 @@ public class ScoreScript : MonoBehaviour {
 		   	p1Score += scoreToAdd;
 			p1Text.text = p1Score.ToString();
 
-//				p1Text.gameObject.transform.DOPunchScale (Vector3.one * 1.3f,0.3f);
+				p1Text.gameObject.transform.DOPunchScale (Vector3.one * 1.3f,0.3f);
 		   	
 				tmp = Instantiate (spawnTextObject, textPos.position, Quaternion.identity);
 		   	
