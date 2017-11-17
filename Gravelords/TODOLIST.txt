@@ -1,32 +1,5 @@
 SHADER HIGHLIGHTING FOR GRAVES?
-
-flowers???
-come back to it once you fix movement for undead
-
-
-TODAY:
-undead qol, convert movement to strictly rigidbody
-
-QOL
-undead are too strong
-knockback is too hard / stacks with multiple
-they move too fast, no digging can occur
-you cant hit them off of you effectively
-undead shouldnt be able to stack, need to move objects
-position via RIGIDBODY as opposed to using the built in stuff (see code comments for more details)
-
-you cant knock players back hard enough
-hard to control where other player is going
-it is hard to move within range of the other player to hit them
-
-graves are too easy to fall into
-you should not be able to walk over graves while they are not dug
-cant dig and fall into it
-
-no flowers yet this game SUCKS
-
-dash OVER GRAVES???? naaaaniiiiii
-
+char names are Doug and Barry
 
 http://dotween.demigiant.com/documentation.php
 

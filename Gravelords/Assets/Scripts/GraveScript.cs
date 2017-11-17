@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GraveScript : MonoBehaviour {
 
@@ -9,13 +10,21 @@ public class GraveScript : MonoBehaviour {
 
     CapsuleCollider2D cap;
 
+	BoxCollider2D playerBox;
+
 	//apublic GameObject ;
 
     public int scoreValue;
 
+	public float hazeKill;
+
     public Sprite dugSprite;
     public Sprite halfSprite;
     public Sprite undugSprite;
+
+	public GameObject haze;
+
+	public GameObject playerColl;
 
     public enum DigState { DUG, HALFDUG, UNDUG };
 
@@ -33,6 +42,9 @@ public class GraveScript : MonoBehaviour {
 
         rend = GetComponent<SpriteRenderer>();
         cap = GetComponentInChildren<CapsuleCollider2D>();
+		playerBox = playerColl.GetComponent<BoxCollider2D>();
+
+		playerBox.enabled = true;
 
         currentState = DigState.UNDUG;
         updateGraveState();
@@ -49,20 +61,28 @@ public class GraveScript : MonoBehaviour {
 
     public void updateGraveState()
     {
-        if (currentState == DigState.DUG)
+        if (currentState <= DigState.DUG)
         {
+			currentState = DigState.DUG;
             rend.sprite = dugSprite;
             cap.enabled = true;
+			playerBox.enabled = false;
+
         }
         if (currentState == DigState.HALFDUG)
         {
             rend.sprite = halfSprite;
             cap.enabled = false;
+			playerBox.enabled = true;
+
         }
-        if (currentState == DigState.UNDUG)
+        if (currentState >= DigState.UNDUG)
         {
+			currentState = DigState.UNDUG;
             rend.sprite = undugSprite;
             cap.enabled = false;
+			playerBox.enabled = true;
+
         }
     }
 
@@ -71,7 +91,9 @@ public class GraveScript : MonoBehaviour {
         ++scoreValue;
 
 		graveText.text = scoreValue.ToString();
+		graveText.gameObject.transform.DOPunchScale (Vector3.one * 1.3f,0.2f);
 
+	//	graveText.gameObject.transform.DOPunchScale
     }
 
     public void cashout()
@@ -79,13 +101,19 @@ public class GraveScript : MonoBehaviour {
         scoreValue = 0;
 
 		graveText.text = scoreValue.ToString();
+		graveText.gameObject.transform.DOPunchScale (Vector3.one * 1.3f,0.2f);
+
     }
 
 	public void spawnUndead()
 	{
 		if (currentState == DigState.UNDUG) {
 
+			GameObject tmp = Instantiate (haze, transform.position + new Vector3(0, 0, 1), Quaternion.identity);
+
 			Instantiate (undead, transform.position, Quaternion.identity);
+
+			Destroy (tmp, hazeKill);
 
 		}
 	}

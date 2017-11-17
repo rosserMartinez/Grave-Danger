@@ -67,9 +67,9 @@ public class DeadScript : MonoBehaviour {
 
 		moveVec = new Vector2 (lastPlayerDetected.x - transform.position.x, lastPlayerDetected.y - transform.position.y).normalized;
 
-		rb.AddForce (moveVec * moveSpeed);
+		addForce (moveVec * moveSpeed);
 
-		rb.AddForce ((-speed * friction));
+		addForce ((-speed * friction));
 
 		//addForce (moveVec * moveSpeed);
 

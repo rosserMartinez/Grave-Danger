@@ -14,7 +14,6 @@ public class RespawnScript : MonoBehaviour {
 	public GraveScript grave2;
 	public GraveScript grave3;
 
-
     public Transform p1Respawn;
     public Transform p2Respawn;
 

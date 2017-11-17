@@ -93,7 +93,7 @@ public class ScoreScript : MonoBehaviour {
 			startString = "PUT 'EM IN A COFFIN!";
 			break;
 		case 4:
-			startString = "BETTER THEM THAN YOU!";
+			startString = "DIGTOWN? AND YOU'RE THE MAYOR?!";
 			break;
 		case 3:
 			startString = "SHOW 'EM WHO'S BOSS!";

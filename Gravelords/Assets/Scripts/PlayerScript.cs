@@ -45,7 +45,7 @@ public class PlayerScript : MonoBehaviour
     public Vector2 speed;
     public Vector2 force;
     public Vector2 position;
-	//public Vector2 moveVec;
+	public Vector2 moveVec;
 
     public int dashCount;
     public float dashSpeed;
@@ -87,7 +87,7 @@ public class PlayerScript : MonoBehaviour
 
 		playerShovel = GetComponentInChildren<ShovelScript> ();
 
-        acceleration = Vector2.zero;
+     //   acceleration = Vector2.zero;
         force = Vector2.zero;
         speed = Vector2.zero;
 
@@ -98,24 +98,26 @@ public class PlayerScript : MonoBehaviour
 
         transform.position = spawnManager.getSpawnpoint(playerNum).position;
 
-		position = transform.position;
+		//position = transform.position;
 
 	}
 
     public void addForce(Vector2 newForce)
     {
-        force += newForce;
+        //force += newForce;
+		rb.AddForce (newForce);
+
     }
 
     // Update is called once per frame
     void Update()
     {
       
-			Vector2 moveVec = new Vector2 (Input.GetAxis (LeftX) * moveSpeed, -Input.GetAxis (LeftY) * moveSpeed);
+			moveVec = new Vector2 (Input.GetAxis (LeftX) * moveSpeed, -Input.GetAxis (LeftY) * moveSpeed);
 
 			addForce (moveVec);
 
-
+		    addForce (-speed * friction);
 			//dash
 			if (Input.GetButtonDown (LeftBumper) && dashCount > 0) {
 				addForce (moveVec * 15);
@@ -134,9 +136,9 @@ public class PlayerScript : MonoBehaviour
 					dashResetTimer = 0f;
 				}
 			}
-		
-			addForce (-speed * friction);
 
+		//force = Vector2.zero;
+		/*
 			speed = speed + force * Time.deltaTime;
 
 			float magnitude = Mathf.Min (speed.magnitude, maxSpeed);
@@ -144,9 +146,8 @@ public class PlayerScript : MonoBehaviour
 
 			position = position + speed * Time.deltaTime;
 
-			force = Vector2.zero;
 
-			transform.position = position;
+			transform.position = position; */
 		//}
 
 
@@ -179,7 +180,7 @@ public class PlayerScript : MonoBehaviour
 
 		if (isUpLeft && prevDownLeft) {
 
-            if (lastGrave != null)
+			if (lastGrave != null && lastGrave.currentState != GraveScript.DigState.DUG)
             {
 			    //dig
 			    --lastGrave.currentState;
@@ -212,7 +213,7 @@ public class PlayerScript : MonoBehaviour
         if (isUpRight && prevDownRight)
         {
 
-            if (lastGrave != null)
+			if (lastGrave != null && lastGrave.currentState != GraveScript.DigState.UNDUG)
             {
                 ++lastGrave.currentState;
 
