@@ -47,6 +47,8 @@ public class PlayerScript : MonoBehaviour
     public Vector2 position;
 	public Vector2 moveVec;
 
+    public float rotSpeed;
+
     public int dashCount;
     public float dashSpeed;
     public int dashMax;
@@ -157,7 +159,7 @@ public class PlayerScript : MonoBehaviour
 
 			//godLIKE
 			float angle = Mathf.Atan2(Input.GetAxis(RightX), Input.GetAxis(RightY)) * Mathf.Rad2Deg;
-			transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.Euler (0, 0, angle), Time.deltaTime * 1000);
+			transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.Euler (0, 0, angle), Time.deltaTime * rotSpeed);
 
         }
 
@@ -186,12 +188,7 @@ public class PlayerScript : MonoBehaviour
 			    --lastGrave.currentState;
 			    
 			    lastGrave.updateGraveState();
-			    
-			    if (lastGrave.currentState == GraveScript.DigState.DUG)
-			    {
-			    	//scoremanager
-			    	scoreManager.incrementPlayerScore (playerNum, scoreInt, transform);
-			    }
+                
             }
 		}
 		
@@ -229,7 +226,6 @@ public class PlayerScript : MonoBehaviour
 
                     lastGrave.cashout();
                 }
-
             }
         }
 

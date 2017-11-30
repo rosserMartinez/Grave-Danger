@@ -91,7 +91,7 @@ public class GraveScript : MonoBehaviour {
         ++scoreValue;
 
 		graveText.text = scoreValue.ToString();
-		graveText.gameObject.transform.DOPunchScale (Vector3.one * 1.3f,0.2f);
+		graveText.gameObject.transform.DOPunchScale (Vector3.one * 1.3f, 0.2f, 1, 0);
 
 	//	graveText.gameObject.transform.DOPunchScale
     }
@@ -101,7 +101,7 @@ public class GraveScript : MonoBehaviour {
         scoreValue = 0;
 
 		graveText.text = scoreValue.ToString();
-		graveText.gameObject.transform.DOPunchScale (Vector3.one * 1.3f,0.2f);
+		graveText.gameObject.transform.DOPunchScale (Vector3.one * 1.3f, 0.2f, 1, 0); //MUY IMPORTANTE
 
     }
 

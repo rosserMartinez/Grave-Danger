@@ -167,6 +167,7 @@ MonoBehaviour:
   force: {x: 0, y: 0}
   position: {x: 0.7001161, y: 8.549116}
   moveVec: {x: 0, y: 0}
+  rotSpeed: 20
   dashCount: 0
   dashSpeed: 15
   dashMax: 1
