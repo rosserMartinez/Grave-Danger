@@ -61,6 +61,7 @@ MonoBehaviour:
   graveText1: {fileID: 0}
   graveText2: {fileID: 0}
   graveText3: {fileID: 0}
+  inscriptions: []
   respawn: {fileID: 0}
   spawnTextObject: {fileID: 1902339584184196, guid: 772e64f19c6dfb940b746bfd1348d6b8,
     type: 2}
@@ -70,4 +71,6 @@ MonoBehaviour:
   gameOver: 0
   startTimer: 2
   fightTime: 0.6
-  goalPoints: 15
+  gameLevel: mainGame
+  startLevel: SplashScreen
+  goalPoints: 30

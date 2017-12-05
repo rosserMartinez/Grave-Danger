@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 4a6c2bef96d0bca428dbdb6d325d2637
+timeCreated: 1512082222
+licenseType: Pro
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Skull And Void
+  fontNames:
+  - Skull And Void
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

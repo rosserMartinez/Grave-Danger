@@ -14,6 +14,8 @@ public class RespawnScript : MonoBehaviour {
 	public GraveScript grave2;
 	public GraveScript grave3;
 
+    public GraveScript[] graves;
+
     public Transform p1Respawn;
     public Transform p2Respawn;
 
@@ -24,7 +26,6 @@ public class RespawnScript : MonoBehaviour {
     public bool p1Respawning;
     public bool p2Respawning;
 	public bool undeadSpawning;
-
 
     public float respawnTimerMax;
 	public float undeadSpawnMax;
@@ -45,6 +46,12 @@ public class RespawnScript : MonoBehaviour {
 
 		player1Num = player1.GetComponent<PlayerScript>().playerNum;
 		player2Num = player2.GetComponent<PlayerScript>().playerNum;
+
+        //graves = FindObjectsOfType(GraveScript);
+
+        GameObject graveList = GameObject.Find("Graves");
+
+        graves = graveList.GetComponentsInChildren<GraveScript>();
 
     }
 
@@ -89,11 +96,17 @@ public class RespawnScript : MonoBehaviour {
 			respawnTimerUndead = Mathf.Max (respawnTimerUndead, 0);
 
 			if (respawnTimerUndead == 0) {
-				//p2Respawning = false;
+                //p2Respawning = false;
 
-				grave1.spawnUndead ();
-				grave2.spawnUndead ();
-				grave3.spawnUndead ();
+                //grave1.spawnUndead ();
+                //grave2.spawnUndead ();
+                //grave3.spawnUndead ();
+
+                for (int i = 0; i < graves.Length; ++i)
+                {
+                    graves[i].spawnUndead();
+                }
+
 
 				respawnTimerUndead = undeadSpawnMax;
 			}        

@@ -114,6 +114,7 @@ MonoBehaviour:
   grave1: {fileID: 0}
   grave2: {fileID: 0}
   grave3: {fileID: 0}
+  graves: []
   p1Respawn: {fileID: 4446107924028950}
   p2Respawn: {fileID: 4250615397267852}
   respawnTimerP1: 0
@@ -123,6 +124,6 @@ MonoBehaviour:
   p2Respawning: 0
   undeadSpawning: 0
   respawnTimerMax: 0.7
-  undeadSpawnMax: 3
+  undeadSpawnMax: 10
   player1Num: 0
   player2Num: 0

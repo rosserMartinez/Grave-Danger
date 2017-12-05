@@ -12,21 +12,22 @@ public class GraveScript : MonoBehaviour {
 
 	BoxCollider2D playerBox;
 
-	//apublic GameObject ;
-
     public int scoreValue;
 
 	public float hazeKill;
 
+	Tween textTween;
+
     public Sprite dugSprite;
-    public Sprite halfSprite;
+  //  public Sprite halfSprite;
     public Sprite undugSprite;
 
 	public GameObject haze;
+    public GameObject dirtParticles;
 
 	public GameObject playerColl;
 
-    public enum DigState { DUG, HALFDUG, UNDUG };
+    public enum DigState { DUG, UNDUG };
 
     public DigState currentState;
 
@@ -44,7 +45,9 @@ public class GraveScript : MonoBehaviour {
         cap = GetComponentInChildren<CapsuleCollider2D>();
 		playerBox = playerColl.GetComponent<BoxCollider2D>();
 
-		playerBox.enabled = true;
+		playerBox.enabled = false;
+
+		//textTween.
 
         currentState = DigState.UNDUG;
         updateGraveState();
@@ -66,14 +69,9 @@ public class GraveScript : MonoBehaviour {
 			currentState = DigState.DUG;
             rend.sprite = dugSprite;
             cap.enabled = true;
-			playerBox.enabled = false;
+			//playerBox.enabled = false;
 
-        }
-        if (currentState == DigState.HALFDUG)
-        {
-            rend.sprite = halfSprite;
-            cap.enabled = false;
-			playerBox.enabled = true;
+            GameObject dirt = Instantiate(dirtParticles, transform.position + new Vector3(0, 0, 1), Quaternion.identity);
 
         }
         if (currentState >= DigState.UNDUG)
@@ -81,8 +79,9 @@ public class GraveScript : MonoBehaviour {
 			currentState = DigState.UNDUG;
             rend.sprite = undugSprite;
             cap.enabled = false;
-			playerBox.enabled = true;
+            //playerBox.enabled = true;
 
+            GameObject dirt = Instantiate(dirtParticles, transform.position + new Vector3(0, 0, 1), Quaternion.identity);
         }
     }
 
@@ -91,9 +90,14 @@ public class GraveScript : MonoBehaviour {
         ++scoreValue;
 
 		graveText.text = scoreValue.ToString();
-		graveText.gameObject.transform.DOPunchScale (Vector3.one * 1.3f, 0.2f, 1, 0);
+		graveText.gameObject.transform.DOPunchScale (Vector3.one * 1.3f, 0.1f, 1, 0).From(true);
 
-	//	graveText.gameObject.transform.DOPunchScale
+        GameObject dirt = Instantiate(dirtParticles, transform.position + new Vector3(0, 0, 1), Quaternion.identity);
+
+        //        graveText.gameObject.transform.DORestart();
+        // graveText.gameObject.transform.DOPunchScale(-Vector3.one * 1.3f, 0.1f, 1, 0);
+        //	textTween.
+        //	graveText.gameObject.transform.DOPunchScale
     }
 
     public void cashout()
@@ -103,6 +107,7 @@ public class GraveScript : MonoBehaviour {
 		graveText.text = scoreValue.ToString();
 		graveText.gameObject.transform.DOPunchScale (Vector3.one * 1.3f, 0.2f, 1, 0); //MUY IMPORTANTE
 
+//        graveText.gameObject.transform.DOScale( 1, 0f);
     }
 
 	public void spawnUndead()

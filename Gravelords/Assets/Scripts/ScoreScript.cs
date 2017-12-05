@@ -21,6 +21,8 @@ public class ScoreScript : MonoBehaviour {
 	public Text graveText2;
 	public Text graveText3;
 
+    public Text[] inscriptions;
+
 	public RespawnScript respawn;
 
 	private GameObject tmp;
@@ -66,12 +68,20 @@ public class ScoreScript : MonoBehaviour {
 
 		startText.enabled = true;
 
+        GameObject graveTextList = GameObject.Find("graveTextList");
 
-		graveText1.enabled = false;
-		graveText2.enabled = false;
-		graveText3.enabled = false;
+        inscriptions = graveTextList.GetComponentsInChildren<Text>();
 
-		gameStart = false;
+        for (int i = 0; i < inscriptions.Length; ++i)
+        {
+            inscriptions[i].enabled = false;
+        }
+
+        //graveText1.enabled = false;
+        //graveText2.enabled = false;
+        //graveText3.enabled = false;
+
+        gameStart = false;
 		gameOver = false;
         p1Score = 0;
         p2Score = 0;
@@ -139,10 +149,12 @@ public class ScoreScript : MonoBehaviour {
 			goalText.enabled = true;
 			p1Text.enabled = true;
 			p2Text.enabled = true;
-			graveText1.enabled = true;
-			graveText2.enabled = true;
-			graveText3.enabled = true;
-		}
+
+            for (int i = 0; i < inscriptions.Length; ++i)
+            {
+                inscriptions[i].enabled = true;
+            }
+        }
 
 
 		if (p1Won != null)
@@ -212,13 +224,14 @@ public class ScoreScript : MonoBehaviour {
 				goalText.text = winString;
 				gameOver = true;
 				startText.enabled = true;
-		   	
-				graveText1.enabled = false;
-				graveText2.enabled = false;
-				graveText3.enabled = false;
-				
-				//slowmo?
-				Time.timeScale = .5f;
+
+                for (int i = 0; i < inscriptions.Length; ++i)
+                {
+                    inscriptions[i].enabled = false;
+                }
+
+                //slowmo?
+                Time.timeScale = .5f;
 		   	
 				startText.text = endString;
 				startText.fontSize = endSize;
@@ -250,13 +263,13 @@ public class ScoreScript : MonoBehaviour {
 				gameOver = true;
 				startText.enabled = true;
 
-				Time.timeScale = .5f;
-				
-				graveText1.enabled = false;
-				graveText2.enabled = false;
-				graveText3.enabled = false;
+                   for (int i = 0; i < inscriptions.Length; ++i)
+                   {
+                        inscriptions[i].enabled = false;
+                   }
 
-				startText.text = endString;
+				Time.timeScale = .5f;
+                    startText.text = endString;
 				startText.fontSize = endSize;
 
 				p1Won = false;

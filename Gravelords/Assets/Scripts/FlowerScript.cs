@@ -5,7 +5,7 @@ using UnityEngine;
 public class FlowerScript : MonoBehaviour {
 
 	CapsuleCollider2D cap;
-
+    Rigidbody2D rb;
 	CollisionScript collManager;
 
 	public float maxTimer;
@@ -19,18 +19,25 @@ public class FlowerScript : MonoBehaviour {
 	public Vector2 force;
 	public Vector2 position;
 
-	public void addForce(Vector2 newForce)
-	{
-		force += newForce;
-	}
+    public float braking;
+
+	//public void addForce(Vector2 newForce)
+	//{
+    //    rb.AddForce(newForce);
+	//}
 
 	// Use this for initialization
 	void Start () {
 		timer = maxTimer;
 		cap = GetComponent<CapsuleCollider2D> ();
 		cap.enabled = false;
+        rb = GetComponent<Rigidbody2D>();
+
 
 		collManager = GameObject.Find("CollisionManager").GetComponent<CollisionScript>();
+
+
+        //addForce(3500 * Vector2.up);
 
 	//	force = Vector2.zero;
 	//	speed = Vector2.zero;
@@ -45,12 +52,18 @@ public class FlowerScript : MonoBehaviour {
 		
 		timer -= Time.deltaTime;
 
+
 		if (timer <= 0) {
 			cap.enabled = true;
+            rb.velocity = Vector2.zero;
+
 		} else {
 			
 			transform.Rotate (0, 0, smoothRot * Time.deltaTime);
+            rb.velocity = rb.velocity * braking;
 		
+
+
 			/*addForce (-speed * friction);
 		
 			speed = speed + force * Time.deltaTime;

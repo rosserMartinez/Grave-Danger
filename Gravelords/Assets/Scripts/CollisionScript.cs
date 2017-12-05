@@ -14,7 +14,9 @@ public class CollisionScript : MonoBehaviour {
 	GraveScript grave;
 	GameObject pit;
 
-	public enum CollisionType
+    public GameObject shovelParticles;
+
+    public enum CollisionType
 	{
 		//naming convention, gameobj a will be first, b will be after underscore
 		SHOVEL_PLAYER,
@@ -51,6 +53,7 @@ public class CollisionScript : MonoBehaviour {
 			player = b.GetComponent<PlayerScript> ();
 			
 			player.addForce (-shovelPlayer.up * playerHitForce);
+            player.damageHealth();
 			break;
 		case CollisionType.PLAYER_GRAVE:
 			player = a.GetComponent<PlayerScript> ();
@@ -86,7 +89,7 @@ public class CollisionScript : MonoBehaviour {
 			undead.triggerDeathAgain ();
 			grave.incrementHoleScore ();
 			break;
-
+          
 		case CollisionType.UNDEAD_PIT:
 			undead = a.GetComponent<DeadScript> ();
 			
@@ -99,7 +102,8 @@ public class CollisionScript : MonoBehaviour {
 			Vector2 hitVecUndead = new Vector2 (b.transform.position.x - a.transform.position.x, b.transform.position.y - a.transform.position.y);
 			
 			player.addForce (hitVecUndead.normalized * undeadHitForce);
-			break;
+            player.damageHealth();
+            break;
 
 		case CollisionType.FLOWER_PLAYER:
 			player = b.GetComponent<PlayerScript> ();

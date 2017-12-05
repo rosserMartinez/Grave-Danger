@@ -12,6 +12,7 @@ TagManager:
   - dirt
   - undead
   - flowers
+  - graveText
   layers:
   - Default
   - TransparentFX
