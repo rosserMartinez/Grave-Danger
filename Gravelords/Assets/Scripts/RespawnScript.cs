@@ -15,6 +15,9 @@ public class RespawnScript : MonoBehaviour {
 	public GraveScript grave3;
 
     public GraveScript[] graves;
+    public Transform[] p1spawns;
+    public Transform[] p2spawns;
+
 
     public Transform p1Respawn;
     public Transform p2Respawn;
@@ -53,10 +56,16 @@ public class RespawnScript : MonoBehaviour {
 
         graves = graveList.GetComponentsInChildren<GraveScript>();
 
+        GameObject p1SpawnList = GameObject.Find("P1SPAWNS");
+        p1spawns = p1SpawnList.GetComponentsInChildren<Transform>();
+
+        GameObject p2SpawnList = GameObject.Find("P2SPAWNS");
+        p2spawns = p2SpawnList.GetComponentsInChildren<Transform>();
+
     }
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
 
         if (p1Respawning)
         {
@@ -69,7 +78,7 @@ public class RespawnScript : MonoBehaviour {
             if (respawnTimerP1 == 0)
             {
                 p1Respawning = false;
-				player1Instance = Instantiate (player1, p1Respawn);
+				player1Instance = Instantiate (player1, p1spawns[Random.Range(1,5)].position, Quaternion.identity);
 
             }
         }
@@ -84,7 +93,7 @@ public class RespawnScript : MonoBehaviour {
 			if (respawnTimerP2 == 0)
 			{
 				p2Respawning = false;
-				player2Instance = Instantiate (player2, p2Respawn);
+				player2Instance = Instantiate (player2, p2spawns[Random.Range(1, 5)].position, Quaternion.identity);
 
 			}        
 		}

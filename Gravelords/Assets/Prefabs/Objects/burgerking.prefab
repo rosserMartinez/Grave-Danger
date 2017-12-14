@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 212457886512559328}
   - component: {fileID: 114680775299010562}
   - component: {fileID: 50878133279970078}
-  - component: {fileID: 61255533012554782}
+  - component: {fileID: 58860514429208420}
   m_Layer: 8
   m_Name: burgerking
   m_TagString: player
@@ -55,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1759385676514572}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 33.359, y: -3.182, z: 0}
+  m_LocalPosition: {x: 25.883, y: -1.676, z: 0}
   m_LocalScale: {x: 0.39864197, y: 0.39864197, z: 0.39864197}
   m_Children:
   - {fileID: 4307846539908958}
@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1142945934252268}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2, y: -1.47, z: 0}
+  m_LocalPosition: {x: 0.1, y: -1.59, z: 0}
   m_LocalScale: {x: 1.4024006, y: 1.4024006, z: 1.4024006}
   m_Children: []
   m_Father: {fileID: 4004645879051342}
@@ -95,8 +95,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &61255533012554782
-BoxCollider2D:
+--- !u!58 &58860514429208420
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -107,19 +107,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.25, y: 2.13}
-    newSize: {x: 2.25, y: 2.13}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: -0.008227146, y: -0.32470855}
   serializedVersion: 2
-  m_Size: {x: 2.25, y: 2.13}
-  m_EdgeRadius: 0
+  m_Radius: 1.2199215
 --- !u!70 &70050445174957798
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
@@ -150,8 +140,12 @@ MonoBehaviour:
   spawnManager: {fileID: 0}
   scoreManager: {fileID: 0}
   collManager: {fileID: 0}
+  cameraShake: {fileID: 0}
   dashParticles: {fileID: 1334899273790178, guid: 0eb2ce1c96b58d849a5f127a3f1fba00,
     type: 2}
+  hitByPlayer: 0
+  slayTimer: 0
+  slayMax: 0.75
   playerNum: 2
   enemyPlayerNum: 0
   flowerPrefab: {fileID: 1152415572070306, guid: fc5ae60ac6b1e1a4291cc94576d08f41,
@@ -166,9 +160,9 @@ MonoBehaviour:
   force: {x: 0, y: 0}
   position: {x: 0.7001161, y: 8.549116}
   moveVec: {x: 0, y: 0}
-  rotSpeed: 20
+  rotSpeed: 50
   dashCount: 0
-  dashSpeed: 15
+  dashSpeed: 6
   dashMax: 1
   dashResetTimer: 0
   dashResetMaxTime: 0.4
@@ -183,6 +177,9 @@ MonoBehaviour:
   hitstunMaxTimer: 0.4
   baseColor: {r: 0, g: 0, b: 1, a: 1}
   hitstunColor: {r: 0, g: 0, b: 0, a: 1}
+  hitstunFlash: {r: 1, g: 1, b: 1, a: 1}
+  flashFrame: 0
+  explosion: {fileID: 1697352092083256, guid: dc3f1b7cc36027e4789099742d70ffb8, type: 2}
 --- !u!114 &114824168704483182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -196,7 +193,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spinning: 0
   spinTimer: 0
-  spinMaxTimer: 0.4
+  spinMaxTimer: 0.25
+  onCooldown: 0
+  cooldown: 0
+  cooldownMax: 0.125
   spinSpeed: 1440
   shovelNum: 1
 --- !u!212 &212386720616912080
@@ -276,8 +276,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: fa0b477ac5ea8074d947bb9e099ea645, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 057c2f5e6e482c94eb2c0fe0a01afe55, type: 3}
   m_Color: {r: 0, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

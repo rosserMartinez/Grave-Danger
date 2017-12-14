@@ -25,7 +25,11 @@ public class GraveScript : MonoBehaviour {
 	public GameObject haze;
     public GameObject dirtParticles;
 
-	public GameObject playerColl;
+    Vector3 baseScale;
+    float punchScale = 1.3f;
+    float punchDuration = 0.3f;
+
+    public GameObject playerColl;
 
     public enum DigState { DUG, UNDUG };
 
@@ -47,7 +51,7 @@ public class GraveScript : MonoBehaviour {
 
 		playerBox.enabled = false;
 
-		//textTween.
+        baseScale = new Vector3(1f, 1f, 1f);
 
         currentState = DigState.UNDUG;
         updateGraveState();
@@ -90,7 +94,9 @@ public class GraveScript : MonoBehaviour {
         ++scoreValue;
 
 		graveText.text = scoreValue.ToString();
-		graveText.gameObject.transform.DOPunchScale (Vector3.one * 1.3f, 0.1f, 1, 0).From(true);
+
+		graveText.rectTransform.localScale = baseScale;
+        graveText.gameObject.transform.DOPunchScale(Vector3.one * punchScale, punchDuration);
 
         GameObject dirt = Instantiate(dirtParticles, transform.position + new Vector3(0, 0, 1), Quaternion.identity);
 
@@ -105,7 +111,8 @@ public class GraveScript : MonoBehaviour {
         scoreValue = 0;
 
 		graveText.text = scoreValue.ToString();
-		graveText.gameObject.transform.DOPunchScale (Vector3.one * 1.3f, 0.2f, 1, 0); //MUY IMPORTANTE
+        graveText.rectTransform.localScale = baseScale;
+        graveText.gameObject.transform.DOPunchScale (Vector3.one * punchScale, punchDuration); //MUY IMPORTANTE
 
 //        graveText.gameObject.transform.DOScale( 1, 0f);
     }

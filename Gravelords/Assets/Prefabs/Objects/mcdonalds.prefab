@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212949666451969546}
   - component: {fileID: 114067017912675112}
   - component: {fileID: 50817374670306748}
-  - component: {fileID: 61463401048767704}
+  - component: {fileID: 58674963068751282}
   m_Layer: 8
   m_Name: mcdonalds
   m_TagString: player
@@ -55,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1627937410371252}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2, y: -1.47, z: 0}
+  m_LocalPosition: {x: 0.1, y: -1.59, z: 0}
   m_LocalScale: {x: 1.4024006, y: 1.4024006, z: 1.4024006}
   m_Children: []
   m_Father: {fileID: 4707326142662786}
@@ -68,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1169426837739268}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 27.719, y: -3.195, z: 0}
+  m_LocalPosition: {x: 39.78571, y: 3.7526562, z: 0}
   m_LocalScale: {x: 0.39864197, y: 0.39864197, z: 0.39864197}
   m_Children:
   - {fileID: 4089375007717144}
@@ -95,8 +95,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &61463401048767704
-BoxCollider2D:
+--- !u!58 &58674963068751282
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -107,19 +107,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.25, y: 2.13}
-    newSize: {x: 2.25, y: 2.13}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: -0.008227146, y: -0.32470855}
   serializedVersion: 2
-  m_Size: {x: 2.25, y: 2.13}
-  m_EdgeRadius: 0
+  m_Radius: 1.2199215
 --- !u!70 &70586217057585840
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
@@ -150,8 +140,13 @@ MonoBehaviour:
   spawnManager: {fileID: 0}
   scoreManager: {fileID: 0}
   collManager: {fileID: 0}
+  cameraShake: {fileID: 0}
+  hpVisual: {fileID: 0}
   dashParticles: {fileID: 1334899273790178, guid: 0eb2ce1c96b58d849a5f127a3f1fba00,
     type: 2}
+  hitByPlayer: 0
+  slayTimer: 0
+  slayMax: 0.75
   playerNum: 1
   enemyPlayerNum: 0
   flowerPrefab: {fileID: 1152415572070306, guid: fc5ae60ac6b1e1a4291cc94576d08f41,
@@ -166,9 +161,9 @@ MonoBehaviour:
   force: {x: 0, y: 0}
   position: {x: 0.7001161, y: 8.549116}
   moveVec: {x: 0, y: 0}
-  rotSpeed: 20
+  rotSpeed: 50
   dashCount: 0
-  dashSpeed: 8
+  dashSpeed: 6
   dashMax: 1
   dashResetTimer: 0
   dashResetMaxTime: 0.4
@@ -183,6 +178,9 @@ MonoBehaviour:
   hitstunMaxTimer: 0.4
   baseColor: {r: 1, g: 0, b: 0, a: 1}
   hitstunColor: {r: 0, g: 0, b: 0, a: 1}
+  hitstunFlash: {r: 1, g: 1, b: 1, a: 1}
+  flashFrame: 0
+  explosion: {fileID: 1453477146405090, guid: bb48b17a67b8678409f745849c33cf36, type: 2}
 --- !u!114 &114158667098397736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -197,6 +195,9 @@ MonoBehaviour:
   spinning: 0
   spinTimer: 0
   spinMaxTimer: 0.25
+  onCooldown: 0
+  cooldown: 0
+  cooldownMax: 0.125
   spinSpeed: 1440
   shovelNum: 1
 --- !u!212 &212460121467439792
@@ -276,8 +277,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: fa0b477ac5ea8074d947bb9e099ea645, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 83bc25a5cd2f58f44bc2652eb3a37283, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0

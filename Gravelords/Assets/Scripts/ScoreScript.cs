@@ -36,6 +36,9 @@ public class ScoreScript : MonoBehaviour {
 	public float fightTime;
 	public bool? p1Won;
 
+    int p1num = 1;
+    int p2num = 2;
+
 	//messages
 	private string baseString;
 	private string winString;
@@ -45,6 +48,11 @@ public class ScoreScript : MonoBehaviour {
 	public string gameLevel;
 	public string startLevel;
 
+    Vector3 baseScale;
+    float punchScale = 1.3f;
+    float punchDuration = 0.3f;
+    float half = .5f;
+    float full = 1f;
 
 	//menu controls
 	private string p1Back;
@@ -62,7 +70,9 @@ public class ScoreScript : MonoBehaviour {
     // Use this for initialization
     void Start() {
 
-		Time.timeScale = 1.0f;
+        baseScale = new Vector3(1f, 1f, 1f);
+
+		Time.timeScale = full;
 
 		p1Won = null;
 
@@ -203,9 +213,10 @@ public class ScoreScript : MonoBehaviour {
 		   	p1Score += scoreToAdd;
 			p1Text.text = p1Score.ToString();
 
-				p1Text.gameObject.transform.DOPunchScale (Vector3.one * 1.3f,0.3f);
-		   	
-				tmp = Instantiate (spawnTextObject, textPos.position, Quaternion.identity);
+                p1Text.rectTransform.localScale = baseScale;
+                p1Text.gameObject.transform.DOPunchScale (Vector3.one * punchScale, punchDuration);
+
+                tmp = Instantiate (spawnTextObject, textPos.position, Quaternion.identity);
 		   	
 				if (tmp.GetComponent<FloatScript>() != null)
 				{
@@ -244,7 +255,10 @@ public class ScoreScript : MonoBehaviour {
             p2Score += scoreToAdd;
 			p2Text.text = p2Score.ToString();
 
-				tmp = Instantiate (spawnTextObject, textPos.position, Quaternion.identity);
+                p1Text.rectTransform.localScale = baseScale;
+                p1Text.gameObject.transform.DOPunchScale(Vector3.one * punchScale, punchDuration);
+
+                tmp = Instantiate (spawnTextObject, textPos.position, Quaternion.identity);
 
 				if (tmp.GetComponent<FloatScript>() != null)
 				{

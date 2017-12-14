@@ -23,10 +23,13 @@ public class DeadScript : MonoBehaviour {
 
 	public float moveSpeed;
 	public float maxSpeed;
-	public float friction;
+    public float friction;
 
-	// Use this for initialization
-	void Start () 
+    public GameObject explosion;
+    GameObject tmpExplosion;
+
+    // Use this for initialization
+    void Start () 
 	{
 
 		force = Vector2.zero;
@@ -120,5 +123,7 @@ public class DeadScript : MonoBehaviour {
 		//spawnManager.respawnPlayer(playerNum);
 
 		Destroy(this.gameObject);
-	}
+
+        tmpExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
+    }
 }

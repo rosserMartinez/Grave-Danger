@@ -52,9 +52,14 @@ public class CollisionScript : MonoBehaviour {
             Transform shovelPlayer = a.transform.parent;
 			player = b.GetComponent<PlayerScript> ();
 			
+            GameObject sparks = Instantiate(shovelParticles, shovelPlayer.position, Quaternion.identity);
+
+            player.markHitByPlayer();
 			player.addForce (-shovelPlayer.up * playerHitForce);
             player.damageHealth();
-			break;
+
+
+            break;
 		case CollisionType.PLAYER_GRAVE:
 			player = a.GetComponent<PlayerScript> ();
 			grave = b.GetComponentInParent<GraveScript> ();
@@ -75,10 +80,13 @@ public class CollisionScript : MonoBehaviour {
 
             undead = b.GetComponent<DeadScript> ();
 
-                //Vector2 hitVecShovel = new Vector2 (b.transform.position.x - a.transform.position.x, b.transform.position.y - a.transform.position.y);
+            GameObject deadSparks = Instantiate(shovelParticles, undead.transform.position, Quaternion.identity);
+            //Vector2 hitVecShovel = new Vector2 (b.transform.position.x - a.transform.position.x, b.transform.position.y - a.transform.position.y);
 
-                //undead.addForce ((hitVecShovel.normalized + -((Vector2)shovelOwner.up)) * undeadHitForce);
-                undead.addForce(-shovelOwner.up * playerHitForce);
+            //undead.addForce ((hitVecShovel.normalized + -((Vector2)shovelOwner.up)) * undeadHitForce);
+            undead.addForce(-shovelOwner.up * undeadHitForce);
+
+
 
                 break;
 

@@ -13,6 +13,8 @@ public class FloatScript : MonoBehaviour {
 	public Color textColor;
 	public int points;
 
+    public int textSize;
+
 	// Use this for initialization
 	void Start () {
 
@@ -20,6 +22,7 @@ public class FloatScript : MonoBehaviour {
 
 		timer = lifeSpan;
 		textObj = GetComponentInChildren<Text> ();
+
 	}
 	
 	// Update is called once per frame

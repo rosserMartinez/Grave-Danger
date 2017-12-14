@@ -13,10 +13,15 @@ public class PlayerScript : MonoBehaviour
     public RespawnScript spawnManager;
     public ScoreScript scoreManager;
     public CollisionScript collManager;
+    public CameraShakeScript cameraShake;
+    public HPScript hpVisual;
 
 
     public GameObject dashParticles;
 
+    public bool hitByPlayer;
+    public float slayTimer;
+    public float slayMax = 0.75f;
 
     private string LeftTrigger;
     private string RightTrigger;
@@ -31,7 +36,7 @@ public class PlayerScript : MonoBehaviour
 
     public int playerNum;
     public int enemyPlayerNum;
-    private int scoreInt = 1;
+    private int scoreInt = 5;
 
     public GameObject flowerPrefab;
     public int flowerScoreInt = 3;
@@ -76,7 +81,14 @@ public class PlayerScript : MonoBehaviour
 
     public Color baseColor;
     public Color hitstunColor;
+    public Color hitstunFlash;
 
+    public bool flashFrame;
+
+    public GameObject explosion;
+    GameObject tmpExplosion;
+
+    int frames;
 
     // Use this for initialization
     void Start()
@@ -97,6 +109,7 @@ public class PlayerScript : MonoBehaviour
         playerCol = GetComponent<BoxCollider2D>();
         lastGrave = null;
         inHitstun = false;
+        frames = 0;
 
         //get enemy player num once lol this took me years
         enemyPlayerNum = (playerNum == 1) ? 2 : 1;
@@ -112,11 +125,16 @@ public class PlayerScript : MonoBehaviour
         spawnManager = GameObject.Find("RespawnManager").GetComponent<RespawnScript>();
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreScript>();
         collManager = GameObject.Find("CollisionManager").GetComponent<CollisionScript>();
+        cameraShake = GameObject.Find("Main Camera").GetComponentInChildren<CameraShakeScript>();
 
-        transform.position = spawnManager.getSpawnpoint(playerNum).position;
+        hpVisual = GameObject.Find("P" + playerNum + "HP").GetComponentInChildren<HPScript>();
+        //transform.position = spawnManager.getSpawnpoint(playerNum).position;
 
         health = maxHealth;
+        hpVisual.updateVisual(health);
         hitstunTimer = hitstunMaxTimer;
+
+        slayTimer = 0;
 
         //position = transform.position;
 
@@ -132,6 +150,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
 
         moveVec = new Vector2(Input.GetAxis(LeftX) * moveSpeed, -Input.GetAxis(LeftY) * moveSpeed);
 
@@ -168,6 +187,17 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
+        if (hitByPlayer)
+        {
+            slayTimer -= Time.deltaTime;
+
+            if (slayTimer <= 0)
+            {
+                hitByPlayer = false;
+            }
+        }
+
+
         //force = Vector2.zero;
         /*
 			speed = speed + force * Time.deltaTime;
@@ -185,13 +215,33 @@ public class PlayerScript : MonoBehaviour
 
         if (inHitstun)
         {
+            frames++;
 
             hitstunTimer -= Time.deltaTime;
+
+            flashFrame = !flashFrame;
+
+            if (frames % 3 == 0)
+            {
+
+                if (flashFrame)
+                {
+                    rend.color = hitstunColor;
+
+                }
+                else
+                {
+                    rend.color = hitstunFlash;
+                }
+
+            }
+
 
             if (hitstunTimer <= 0)
             {
                 inHitstun = false;
                 hitstunTimer = hitstunMaxTimer;
+
                 rend.color = baseColor;
 
                 if (markedForDeath)
@@ -355,8 +405,16 @@ public class PlayerScript : MonoBehaviour
         //trigger respawn
         //Debug.Log("Triggering death");
 
+        tmpExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
+
+        cameraShake.initShake();
         spawnManager.respawnPlayer(playerNum);
-        scoreManager.incrementPlayerScore(enemyPlayerNum, scoreInt, this.transform);
+
+        if (hitByPlayer)
+        {
+            scoreManager.incrementPlayerScore(enemyPlayerNum, scoreInt, this.transform);
+        }
+        
     }
 
     public void pickupFlowers()
@@ -381,13 +439,24 @@ public class PlayerScript : MonoBehaviour
     {
         --health;
 
+        hpVisual.updateVisual(health);
+
+        frames = 0;
+
         inHitstun = true;
-        rend.color = hitstunColor;
 
         if (health == 0)
         {
             markedForDeath = true;
         }
+    }
+
+
+    public void markHitByPlayer()
+    {
+        hitByPlayer = true;
+
+        slayTimer = slayMax;
     }
 
 }

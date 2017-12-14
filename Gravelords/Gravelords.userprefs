@@ -1,14 +1,14 @@
-﻿<Properties StartupItem="Assembly-CSharp.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CollisionScript.cs">
+﻿<Properties StartupItem="Gravelords.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GraveScript.cs">
     <Files>
       <File FileName="Assets\Scripts\CollisionScript.cs" Line="32" Column="3" />
-      <File FileName="Assets\Scripts\PlayerScript.cs" Line="109" Column="27" />
-      <File FileName="Assets\Scripts\ShovelScript.cs" Line="45" Column="1" />
-      <File FileName="Assets\Scripts\MenuShovelScript.cs" Line="99" Column="4" />
-      <File FileName="Assets\Scripts\DeadScript.cs" Line="43" Column="2" />
-      <File FileName="Assets\Scripts\GraveScript.cs" Line="67" Column="6" NotebookId="1" />
-      <File FileName="Assets\Scripts\ScoreScript.cs" Line="25" Column="25" NotebookId="1" />
+      <File FileName="Assets\Scripts\PlayerScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ShovelScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MenuShovelScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\DeadScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GraveScript.cs" Line="97" Column="55" NotebookId="1" />
+      <File FileName="Assets\Scripts\ScoreScript.cs" Line="1" Column="1" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
