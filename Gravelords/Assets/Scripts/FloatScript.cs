@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class FloatScript : MonoBehaviour {
 
@@ -9,11 +10,10 @@ public class FloatScript : MonoBehaviour {
 	public float moveSpeed;
 	public float lifeSpan;
 	public float timer;
-	public Text textObj;
-	public Color textColor;
+	public TextMeshPro textObj;
 	public int points;
 
-    public int textSize;
+    MeshRenderer mesh;
 
 	// Use this for initialization
 	void Start () {
@@ -21,8 +21,12 @@ public class FloatScript : MonoBehaviour {
 		//points = 0;
 
 		timer = lifeSpan;
-		textObj = GetComponentInChildren<Text> ();
+		textObj = GetComponentInChildren<TextMeshPro> ();
 
+
+        //just in case
+        mesh = GetComponentInChildren<MeshRenderer>();
+        mesh.sortingOrder = 30;
 	}
 	
 	// Update is called once per frame
@@ -46,7 +50,11 @@ public class FloatScript : MonoBehaviour {
 			textObj.text = "+" + points.ToString ();
 
 		}
+        else
+        {
+            textObj.text = points.ToString();
+        }
 
 
-	}
+    }
 }

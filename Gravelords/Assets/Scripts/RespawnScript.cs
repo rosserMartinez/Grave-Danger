@@ -10,13 +10,12 @@ public class RespawnScript : MonoBehaviour {
     public GameObject player1;
     public GameObject player2;
 
-	public GraveScript grave1;
-	public GraveScript grave2;
-	public GraveScript grave3;
-
     public GraveScript[] graves;
     public Transform[] p1spawns;
     public Transform[] p2spawns;
+
+    public GameObject p1ResParticles;
+    public GameObject p2ResParticles;
 
 
     public Transform p1Respawn;
@@ -73,13 +72,14 @@ public class RespawnScript : MonoBehaviour {
 
             respawnTimerP1 = Mathf.Max(respawnTimerP1, 0);
 
-			//Debug.Log(respawnTimerP1);
-
             if (respawnTimerP1 == 0)
             {
                 p1Respawning = false;
-				player1Instance = Instantiate (player1, p1spawns[Random.Range(1,5)].position, Quaternion.identity);
 
+                int rand = Random.Range(1, 5);
+
+                player1Instance = Instantiate (player1, p1spawns[rand].position, Quaternion.identity);
+                GameObject particles = Instantiate(p1ResParticles, p1spawns[rand].position, Quaternion.identity);
             }
         }
 
@@ -89,13 +89,14 @@ public class RespawnScript : MonoBehaviour {
 
 			respawnTimerP2 = Mathf.Max(respawnTimerP2, 0);
 
-
 			if (respawnTimerP2 == 0)
 			{
 				p2Respawning = false;
-				player2Instance = Instantiate (player2, p2spawns[Random.Range(1, 5)].position, Quaternion.identity);
+                int rand = Random.Range(1, 5);
 
-			}        
+                player2Instance = Instantiate(player2, p2spawns[rand].position, Quaternion.identity);
+                GameObject particles = Instantiate(p2ResParticles, p2spawns[rand].position, Quaternion.identity);
+            }        
 		}
 
 		if (undeadSpawning) {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class GraveScript : MonoBehaviour {
 
@@ -26,8 +27,9 @@ public class GraveScript : MonoBehaviour {
     public GameObject dirtParticles;
 
     Vector3 baseScale;
-    float punchScale = 1.3f;
-    float punchDuration = 0.3f;
+    float punchScale = 1.6f;
+    float punchDuration = 0.2f;
+    float startingScaleVal = 3.36835f;
 
     public GameObject playerColl;
 
@@ -35,7 +37,7 @@ public class GraveScript : MonoBehaviour {
 
     public DigState currentState;
 
-	public Text graveText;
+	public TextMeshPro graveText;
 //	public float transparency = .6f;
 
 	public GameObject undead;
@@ -51,7 +53,7 @@ public class GraveScript : MonoBehaviour {
 
 		playerBox.enabled = false;
 
-        baseScale = new Vector3(1f, 1f, 1f);
+        baseScale = new Vector3(startingScaleVal, startingScaleVal, startingScaleVal); //starting values for text
 
         currentState = DigState.UNDUG;
         updateGraveState();

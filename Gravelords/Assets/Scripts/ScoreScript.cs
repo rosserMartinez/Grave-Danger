@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 using DG.Tweening;
 
 public class ScoreScript : MonoBehaviour {
@@ -12,16 +13,16 @@ public class ScoreScript : MonoBehaviour {
 
 	public int startMessage;
 
-	public Text p1Text;
-	public Text p2Text;
-	public Text goalText;
-	public Text startText;
+	public TextMeshProUGUI p1Text;
+	public TextMeshProUGUI p2Text;
+	public TextMeshProUGUI goalText;
+	public TextMeshProUGUI startText;
 
-	public Text graveText1;
-	public Text graveText2;
-	public Text graveText3;
+	//public Text graveText1;
+	//public Text graveText2;
+	//public Text graveText3;
 
-    public Text[] inscriptions;
+    public TextMeshPro[] inscriptions;
 
 	public RespawnScript respawn;
 
@@ -61,14 +62,27 @@ public class ScoreScript : MonoBehaviour {
 	private string p2Start;
 
 
-	private int fightSize = 160;
-	private int startSize = 70;
-	private int endSize = 50;
+	private int fightSize = 166;
+	private int startSize = 90;
+	private int endSize = 60;
 
 	public int goalPoints;
 
     // Use this for initialization
     void Start() {
+
+
+
+        p1Text = GameObject.Find("p1TextPro").GetComponent<TextMeshProUGUI>();
+        p2Text = GameObject.Find("p2TextPro").GetComponent<TextMeshProUGUI>();
+        goalText = GameObject.Find("GoalTextPro").GetComponent<TextMeshProUGUI>();
+        startText = GameObject.Find("READYTextPro").GetComponent<TextMeshProUGUI>();
+          
+        //p2Text = GetComponent<TextMeshProUGUI>();
+        //goalText = GetComponent<TextMeshProUGUI>();
+        //startText = GetComponent<TextMeshProUGUI>();
+
+
 
         baseScale = new Vector3(1f, 1f, 1f);
 
@@ -76,11 +90,13 @@ public class ScoreScript : MonoBehaviour {
 
 		p1Won = null;
 
-		startText.enabled = true;
+
+        startText.enabled = true;
+        //startText.text.fontSize = 0;
 
         GameObject graveTextList = GameObject.Find("graveTextList");
 
-        inscriptions = graveTextList.GetComponentsInChildren<Text>();
+        inscriptions = graveTextList.GetComponentsInChildren<TextMeshPro>();
 
         for (int i = 0; i < inscriptions.Length; ++i)
         {
@@ -155,8 +171,9 @@ public class ScoreScript : MonoBehaviour {
 		{
 			//start game
 			gameStart = true;
-			startText.enabled = false;
-			goalText.enabled = true;
+			//startText.enabled = false;
+            startText.fontSize = 0; //pseudo disable
+            goalText.enabled = true;
 			p1Text.enabled = true;
 			p2Text.enabled = true;
 
@@ -234,7 +251,8 @@ public class ScoreScript : MonoBehaviour {
 				winString = "PLAYER 1 WINS!";
 				goalText.text = winString;
 				gameOver = true;
-				startText.enabled = true;
+                //startText.enabled = true;
+                startText.fontSize = startSize; //pseudo enable
 
                 for (int i = 0; i < inscriptions.Length; ++i)
                 {
@@ -275,9 +293,11 @@ public class ScoreScript : MonoBehaviour {
 				winString = "PLAYER 2 WINS!";
 				goalText.text = winString;
 				gameOver = true;
-				startText.enabled = true;
+                    //startText.enabled = true;
+                    startText.fontSize = startSize; //pseudo enable
 
-                   for (int i = 0; i < inscriptions.Length; ++i)
+
+                    for (int i = 0; i < inscriptions.Length; ++i)
                    {
                         inscriptions[i].enabled = false;
                    }

@@ -437,8 +437,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 836639760}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 521.5, y: 293.5, z: 0}
-  m_LocalScale: {x: 0.651875, y: 0.651875, z: 0.651875}
+  m_LocalPosition: {x: 462.5, y: 260, z: 0}
+  m_LocalScale: {x: 0.5777778, y: 0.5777778, z: 0.5777778}
   m_Children:
   - {fileID: 1451401619}
   - {fileID: 1147011024}
@@ -564,7 +564,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1147011023}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.200012, y: -415.9, z: 0}
+  m_LocalPosition: {x: 12.400024, y: -422.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 836639764}
@@ -572,8 +572,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 17.2, y: -415.9}
-  m_SizeDelta: {x: 1545.2, y: 65.4}
+  m_AnchoredPosition: {x: 12.4, y: -422.24997}
+  m_SizeDelta: {x: 1535.6, y: 52.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1147011025
 MonoBehaviour:
@@ -607,7 +607,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: RB to select!                                                                                                    By
+  m_Text: RB to select!                                                                                      By
     Rosser Ricardo Martinez
 --- !u!222 &1147011026
 CanvasRenderer:
